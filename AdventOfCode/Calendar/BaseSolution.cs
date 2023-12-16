@@ -2,8 +2,6 @@
 
 public abstract class BaseSolution
 {
-    public virtual async Task<string[]> ReadInput()
-    {
-        return await File.ReadAllLinesAsync("input.txt");
-    }
+    public virtual async Task<string[]> ReadInput() =>
+        await File.ReadAllLinesAsync("input.txt");
 }

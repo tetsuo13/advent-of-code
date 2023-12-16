@@ -17,10 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Calendar\2023\Day01\input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Calendar\2023\Day02\input.txt">
+    <None Update="Calendar\2023\*\input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

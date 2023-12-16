@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace AdventOfCode.Calendar._2023.Day02;
 
@@ -50,9 +45,7 @@ public class Solution : BaseSolution
 
         for (var gameId = 0; gameId < lines.Length; gameId++)
         {
-            // Strip the leading "Game x:" information
-            var line = lines[gameId][(lines[gameId].IndexOf(':') + 2)..];
-            var sets = Tokenize(line);
+            var sets = SetsInGame(lines[gameId]);
 
             if (sets.TrueForAll(x => x.Red <= Constraint.Red &&
                 x.Green <= Constraint.Green &&
@@ -72,9 +65,7 @@ public class Solution : BaseSolution
 
         for (var gameId = 0; gameId < lines.Length; gameId++)
         {
-            // Strip the leading "Game x:" information
-            var line = lines[gameId][(lines[gameId].IndexOf(':') + 2)..];
-            var sets = Tokenize(line);
+            var sets = SetsInGame(lines[gameId]);
 
             sum += sets.Max(x => x.Red) * sets.Max(x => x.Green) * sets.Max(x => x.Blue);
         }
@@ -82,7 +73,14 @@ public class Solution : BaseSolution
         return sum;
     }
 
-    private List<SetOfCubes> Tokenize(string line)
+    private static List<SetOfCubes> SetsInGame(string line)
+    {
+        // Strip the leading "Game x:" information
+        line = line[(line.IndexOf(':') + 2)..];
+        return Tokenize(line);
+    }
+
+    private static List<SetOfCubes> Tokenize(string line)
     {
         var sets = new List<SetOfCubes>();
 

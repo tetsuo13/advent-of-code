@@ -34,7 +34,11 @@ internal class Solution : BaseSolution
     private async Task<int> SumCalibrationValues()
     {
         var inputLines = await ReadInput();
-        return inputLines.Sum(line => 10 * AsNumber(line.First(char.IsDigit)) + AsNumber(line.Last(char.IsDigit)));
+        return inputLines.Sum(line =>
+        {
+            return 10 * AsNumber(line.First(char.IsDigit)) +
+                AsNumber(line.Last(char.IsDigit));
+        });
     }
 
     /// <summary>

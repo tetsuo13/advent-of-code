@@ -16,7 +16,7 @@ public partial class Solution : BaseSolution
     private const string GearSymbol = "*";
     private string[] lines = [];
 
-    public async Task<int> Run(RunMode runMode)
+    public override async Task<int> Run(RunMode runMode)
     {
         return runMode switch
         {

@@ -28,7 +28,7 @@ public class Solution : BaseSolution
         }
     }
 
-    public async Task<int> Run(RunMode runMode)
+    public override async Task<int> Run(RunMode runMode)
     {
         return runMode switch
         {

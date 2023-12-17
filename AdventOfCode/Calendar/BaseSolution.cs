@@ -1,7 +1,36 @@
-﻿namespace AdventOfCode.Calendar;
+﻿using System.Reflection;
+
+namespace AdventOfCode.Calendar;
 
 public abstract class BaseSolution
 {
-    public virtual async Task<string[]> ReadInput() =>
-        await File.ReadAllLinesAsync("input.txt");
+    private const string InputFilename = "input.txt";
+
+    public abstract Task<int> Run(RunMode runMode);
+
+    /// <summary>
+    /// Input file will reside in a subdirectory of the executable. That
+    /// path will follow the same as the namespace mostly.
+    /// </summary>
+    public virtual async Task<string[]> ReadInput()
+    {
+        var solutionDirectory = GetType().Namespace!
+            .Replace(nameof(AdventOfCode), string.Empty)
+            // Years will have leding underscore
+            .Replace("_", string.Empty)
+            .Replace('.', Path.DirectorySeparatorChar);
+
+        // Remove leading separator left behind from first substitution
+        solutionDirectory = solutionDirectory[1..];
+
+        var inputFile = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!,
+            solutionDirectory, InputFilename);
+
+        if (!File.Exists(inputFile))
+        {
+            throw new FileNotFoundException($"Input file not found in {inputFile}");
+        }
+
+        return await File.ReadAllLinesAsync(inputFile);
+    }
 }

@@ -17,7 +17,7 @@ internal class Solution : BaseSolution
         { "nine", 9 },
     };
 
-    public async Task<int> Run(RunMode runMode)
+    public override async Task<int> Run(RunMode runMode)
     {
         return runMode switch
         {

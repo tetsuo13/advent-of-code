@@ -6,7 +6,7 @@ public class SolutionTests
 {
     private class TestSolution(string[] inputLines) : Solution
     {
-        public override async Task<string[]> ReadInput() => inputLines;
+        public override Task<string[]> ReadInput() => Task.FromResult(inputLines);
     }
 
     private readonly string[] Input =

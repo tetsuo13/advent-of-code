@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace AdventOfCode.Calendar._2023.Day01;
+﻿namespace AdventOfCode.Calendar._2023.Day01;
 
 internal class Solution : BaseSolution
 {
@@ -47,59 +45,62 @@ internal class Solution : BaseSolution
     /// looking for the same thing. The number found from the first pass will
     /// represent the tens place, the second pass represent the ones place.
     /// </summary>
-    [SuppressMessage("Major Code Smell", "S907:\"goto\" statement should not be used")]
     private async Task<int> SumCalibrationValuesPartTwo()
     {
         var calibrationValue = 0;
 
         foreach (var line in await ReadInput())
         {
-            for (var i = 0; i < line.Length; i++)
-            {
-                if (char.IsDigit(line[i]))
-                {
-                    calibrationValue += 10 * AsNumber(line[i]);
-                    break;
-                }
-
-                foreach (var (numberWord, numberValue) in NumberWords)
-                {
-                    if (i + numberWord.Length < line.Length &&
-                        line.Substring(i, numberWord.Length) == numberWord)
-                    {
-                        calibrationValue += 10 * numberValue;
-                        goto StartReverse;
-                    }
-                }
-            }
-
-        StartReverse:
-
-            // Find the last number, keep as the last digit
-            for (var i = line.Length - 1; i >= 0; i--)
-            {
-                if (char.IsDigit(line[i]))
-                {
-                    calibrationValue += AsNumber(line[i]);
-                    break;
-                }
-
-                foreach (var (numberWord, numberValue) in NumberWords)
-                {
-                    if (i + numberWord.Length <= line.Length &&
-                        line.Substring(i, numberWord.Length).Contains(numberWord))
-                    {
-                        calibrationValue += numberValue;
-                        goto EndPasses;
-                    }
-                }
-            }
-
-        EndPasses:
-            ;
+            calibrationValue += CalibrationValueFromFront(line);
+            calibrationValue += CalibrationValueFromBack(line);
         }
 
         return calibrationValue;
+    }
+
+    private static int CalibrationValueFromBack(string line)
+    {
+        // Find the last number, keep as the last digit
+        for (var i = line.Length - 1; i >= 0; i--)
+        {
+            if (char.IsDigit(line[i]))
+            {
+                return AsNumber(line[i]);
+            }
+
+            foreach (var (numberWord, numberValue) in NumberWords)
+            {
+                if (i + numberWord.Length <= line.Length &&
+                    line.Substring(i, numberWord.Length).Contains(numberWord))
+                {
+                    return numberValue;
+                }
+            }
+        }
+
+        throw new ArithmeticException("Expected to find number starting from the front");
+    }
+
+    private static int CalibrationValueFromFront(string line)
+    {
+        for (var i = 0; i < line.Length; i++)
+        {
+            if (char.IsDigit(line[i]))
+            {
+                return 10 * AsNumber(line[i]);
+            }
+
+            foreach (var (numberWord, numberValue) in NumberWords)
+            {
+                if (i + numberWord.Length < line.Length &&
+                    line.Substring(i, numberWord.Length) == numberWord)
+                {
+                    return 10 * numberValue;
+                }
+            }
+        }
+
+        throw new ArithmeticException("Expected to find number from the end");
     }
 
     private static int AsNumber(char c) => c - '0';

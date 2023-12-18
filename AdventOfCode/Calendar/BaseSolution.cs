@@ -16,9 +16,9 @@ public abstract class BaseSolution
     {
         var solutionDirectory = GetType().Namespace!
             .Replace(nameof(AdventOfCode), string.Empty)
-            // Years will have leding underscore
+            // Years will have leading underscore
             .Replace("_", string.Empty)
-            .Replace('.', Path.DirectorySeparatorChar);
+            .Replace(Type.Delimiter, Path.DirectorySeparatorChar);
 
         // Remove leading separator left behind from first substitution
         solutionDirectory = solutionDirectory[1..];

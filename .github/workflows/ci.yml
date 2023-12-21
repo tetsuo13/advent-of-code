@@ -20,9 +20,6 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
-      - name: Restore dependencies
-        run: dotnet restore
-
       - name: Build
         run: dotnet build --no-restore --configuration Release
 

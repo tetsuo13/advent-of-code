@@ -11,12 +11,12 @@ namespace AdventOfCode.Calendar._2023.Day03;
 /// than implementing algorithms from scratch [poorly] -- this really showed
 /// for part 2.
 /// </summary>
-public partial class Solution : BaseSolution
+internal partial class Solution : BaseSolution
 {
     private const char PeriodSymbol = '.';
     private const char GearSymbol = '*';
 
-    private string[] lines = [];
+    private string[] _lines = [];
 
     public override async Task<int> Run(RunMode runMode)
     {
@@ -30,14 +30,14 @@ public partial class Solution : BaseSolution
 
     private async Task<int> SumPartNumbers()
     {
-        lines = await ReadInput();
+        _lines = await ReadInput();
         var sum = 0;
 
-        for (var lineNumber = 0; lineNumber < lines.Length; lineNumber++)
+        for (var lineNumber = 0; lineNumber < _lines.Length; lineNumber++)
         {
             // Draw a bounding box around every number in the row to look
             // for a symbol.
-            foreach (var match in NumberRegex().Matches(lines[lineNumber]).Cast<Match>())
+            foreach (var match in NumberRegex().Matches(_lines[lineNumber]).Cast<Match>())
             {
                 var boundingBox = GetBoundingBox(lineNumber, match.Index, match.Value);
 
@@ -55,27 +55,27 @@ public partial class Solution : BaseSolution
 
     private async Task<int> SumGearRatios()
     {
-        lines = await ReadInput();
+        _lines = await ReadInput();
         var sum = 0;
 
-        for (var lineNumber = 0; lineNumber < lines.Length; lineNumber++)
+        for (var lineNumber = 0; lineNumber < _lines.Length; lineNumber++)
         {
             // Keep track of adjacent part numbers on the line to avoid
             // duplicates.
             var seen = new List<KeyValuePair<string, string>>();
 
-            foreach (var match in NumberRegex().Matches(lines[lineNumber]).Cast<Match>())
+            foreach (var match in NumberRegex().Matches(_lines[lineNumber]).Cast<Match>())
             {
                 var boundingBox = GetBoundingBox(lineNumber, match.Index, match.Value);
 
                 // Gear to the left, first character to the left of that isn't
                 // a period, and this number wasn't previously seen.
                 if (boundingBox[(int)Direction.Left].Contains(GearSymbol) &&
-                    lines[lineNumber][match.Index - 2] != PeriodSymbol &&
+                    _lines[lineNumber][match.Index - 2] != PeriodSymbol &&
                     !seen.Exists(x => x.Value == match.Value))
                 {
                     var rl = GearRatioRLRegex();
-                    var rlMatches = rl.Match(lines[lineNumber], match.Index);
+                    var rlMatches = rl.Match(_lines[lineNumber], match.Index);
 
                     if (rlMatches.Success)
                     {
@@ -87,10 +87,10 @@ public partial class Solution : BaseSolution
                 // Gear to the right and the first character next to that
                 // isn't a period.
                 if (boundingBox[(int)Direction.Right].Contains(GearSymbol) &&
-                    lines[lineNumber][match.Index + match.Value.Length + 1] != PeriodSymbol)
+                    _lines[lineNumber][match.Index + match.Value.Length + 1] != PeriodSymbol)
                 {
                     var lr = GearRatioLRRegex();
-                    var rlMatches = lr.Match(lines[lineNumber], match.Index + match.Value.Length);
+                    var rlMatches = lr.Match(_lines[lineNumber], match.Index + match.Value.Length);
 
                     if (rlMatches.Success)
                     {
@@ -102,9 +102,9 @@ public partial class Solution : BaseSolution
                 var gearPosition = boundingBox[(int)Direction.Bottom].IndexOf(GearSymbol);
 
                 if (gearPosition != -1 &&
-                    lineNumber + 2 < lines.Length &&
-                    match.Index + gearPosition < lines[lineNumber + 2].Length &&
-                    lines[lineNumber + 2][match.Index + gearPosition] != PeriodSymbol)
+                    lineNumber + 2 < _lines.Length &&
+                    match.Index + gearPosition < _lines[lineNumber + 2].Length &&
+                    _lines[lineNumber + 2][match.Index + gearPosition] != PeriodSymbol)
                 {
                     // Starting at the position of the gear, find all numbers
                     // to the right and left of it then concatenate them to
@@ -112,8 +112,8 @@ public partial class Solution : BaseSolution
 
                     var lr = GearRatioLRRegex();
                     var rl = GearRatioRLRegex();
-                    var lrMatches = lr.Match(lines[lineNumber + 2], match.Index + gearPosition);
-                    var rlMatches = rl.Match(lines[lineNumber + 2], match.Index + gearPosition);
+                    var lrMatches = lr.Match(_lines[lineNumber + 2], match.Index + gearPosition);
+                    var rlMatches = rl.Match(_lines[lineNumber + 2], match.Index + gearPosition);
 
                     var partNumber = (rlMatches.Success ? rlMatches.Value : string.Empty)
                         + (lrMatches.Success ? lrMatches.Value : string.Empty);
@@ -157,13 +157,13 @@ public partial class Solution : BaseSolution
         // Add left
         if (!isFlushLeft)
         {
-            boundingBox[(int)Direction.Left] = lines[currentLine][matchIndex - 1].ToString();
+            boundingBox[(int)Direction.Left] = _lines[currentLine][matchIndex - 1].ToString();
         }
 
         // Add right
-        if (matchIndex + number.Length < lines[currentLine].Length)
+        if (matchIndex + number.Length < _lines[currentLine].Length)
         {
-            boundingBox[(int)Direction.Right] = lines[currentLine][matchIndex + number.Length].ToString();
+            boundingBox[(int)Direction.Right] = _lines[currentLine][matchIndex + number.Length].ToString();
         }
 
         var startingPos = isFlushLeft ? 0 : matchIndex - 1;
@@ -171,24 +171,24 @@ public partial class Solution : BaseSolution
 
         if (isFlushLeft)
         {
-            endPadding = startingPos + number.Length + 1 > lines[currentLine].Length ? 0 : 1;
+            endPadding = startingPos + number.Length + 1 > _lines[currentLine].Length ? 0 : 1;
         }
         else
         {
-            endPadding = startingPos + number.Length + 2 > lines[currentLine].Length ? 1 : 2;
+            endPadding = startingPos + number.Length + 2 > _lines[currentLine].Length ? 1 : 2;
         }
 
         // Add top
         if (currentLine > 0)
         {
-            boundingBox[(int)Direction.Top] = lines[currentLine - 1]
+            boundingBox[(int)Direction.Top] = _lines[currentLine - 1]
                 .Substring(startingPos, number.Length + endPadding);
         }
 
         // Add bottom
-        if (currentLine < lines.Length - 1)
+        if (currentLine < _lines.Length - 1)
         {
-            boundingBox[(int)Direction.Bottom] = lines[currentLine + 1]
+            boundingBox[(int)Direction.Bottom] = _lines[currentLine + 1]
                 .Substring(startingPos, number.Length + endPadding);
         }
 
@@ -201,7 +201,6 @@ public partial class Solution : BaseSolution
     [GeneratedRegex(@"\d+")]
     private static partial Regex GearRatioLRRegex();
 
-    //[GeneratedRegex(@"^(?!\.)\d+", RegexOptions.RightToLeft)]
     [GeneratedRegex(@"\d+", RegexOptions.RightToLeft)]
     private static partial Regex GearRatioRLRegex();
 }

@@ -9,7 +9,7 @@ public class SolutionTests
         public override Task<string[]> ReadInput() => Task.FromResult(inputLines);
     }
 
-    private readonly string[] Input =
+    private readonly string[] _input =
         [
             "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green",
             "Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue",
@@ -23,7 +23,7 @@ public class SolutionTests
     [InlineData(RunMode.PartTwo, 2286)]
     public async Task SampleRecord(RunMode runMode, int expected)
     {
-        var solution = new TestSolution(Input);
+        var solution = new TestSolution(_input);
         Assert.Equal(expected, await solution.Run(runMode));
     }
 }

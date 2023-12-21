@@ -2,9 +2,9 @@
 
 namespace AdventOfCode.Calendar._2023.Day02;
 
-public class Solution : BaseSolution
+internal class Solution : BaseSolution
 {
-    private readonly SetOfCubes Constraint = new()
+    private readonly SetOfCubes _constraint = new()
     {
         Red = 12,
         Green = 13,
@@ -47,9 +47,9 @@ public class Solution : BaseSolution
         {
             var sets = SetsInGame(lines[gameId]);
 
-            if (sets.TrueForAll(x => x.Red <= Constraint.Red &&
-                x.Green <= Constraint.Green &&
-                x.Blue <= Constraint.Blue))
+            if (sets.TrueForAll(x => x.Red <= _constraint.Red &&
+                x.Green <= _constraint.Green &&
+                x.Blue <= _constraint.Blue))
             {
                 sum += gameId + 1;
             }

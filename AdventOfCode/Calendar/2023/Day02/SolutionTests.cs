@@ -21,7 +21,7 @@ public class SolutionTests
     [Theory]
     [InlineData(RunMode.PartOne, 8)]
     [InlineData(RunMode.PartTwo, 2286)]
-    public async Task Run(RunMode runMode, int expected)
+    public async Task SampleRecord(RunMode runMode, int expected)
     {
         var solution = new TestSolution(Input);
         Assert.Equal(expected, await solution.Run(runMode));

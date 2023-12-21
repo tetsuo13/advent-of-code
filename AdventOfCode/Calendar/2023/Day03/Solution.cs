@@ -13,7 +13,9 @@ namespace AdventOfCode.Calendar._2023.Day03;
 /// </summary>
 public partial class Solution : BaseSolution
 {
-    private const string GearSymbol = "*";
+    private const char PeriodSymbol = '.';
+    private const char GearSymbol = '*';
+
     private string[] lines = [];
 
     public override async Task<int> Run(RunMode runMode)
@@ -58,53 +60,110 @@ public partial class Solution : BaseSolution
 
         for (var lineNumber = 0; lineNumber < lines.Length; lineNumber++)
         {
-            // Draw a bounding box around every gear symbol to look for
-            // exactly two numbers around it.
+            // Keep track of adjacent part numbers on the line to avoid
+            // duplicates.
+            var seen = new List<KeyValuePair<string, string>>();
 
-            var gearIndex = 0;
-
-            while ((gearIndex = lines[lineNumber].IndexOf(GearSymbol, gearIndex)) != -1)
+            foreach (var match in NumberRegex().Matches(lines[lineNumber]).Cast<Match>())
             {
-                var boundingBox = GetBoundingBox(lineNumber, gearIndex, lines[lineNumber].Substring(gearIndex, 1));
+                var boundingBox = GetBoundingBox(lineNumber, match.Index, match.Value);
 
-                Console.WriteLine($"{gearIndex} {string.Join("|", boundingBox)}");
-
-                Console.WriteLine(boundingBox.Count(x => x.Any(char.IsDigit)));
-
-                //Console.WriteLine(boundingBox.Select(char.IsDigit).Count());
-
-                // Must have exactly two elements with numbers in it
-                if (boundingBox.Count(x => x.Any(char.IsDigit)) == 2)
+                // Gear to the left, first character to the left of that isn't
+                // a period, and this number wasn't previously seen.
+                if (boundingBox[(int)Direction.Left].Contains(GearSymbol) &&
+                    lines[lineNumber][match.Index - 2] != PeriodSymbol &&
+                    !seen.Exists(x => x.Value == match.Value))
                 {
-                    //answer +=
+                    var rl = GearRatioRLRegex();
+                    var rlMatches = rl.Match(lines[lineNumber], match.Index);
+
+                    if (rlMatches.Success)
+                    {
+                        sum += int.Parse(match.Value) * int.Parse(rlMatches.Value);
+                        seen.Add(new(match.Value, rlMatches.Value));
+                    }
                 }
 
-                gearIndex++;
+                // Gear to the right and the first character next to that
+                // isn't a period.
+                if (boundingBox[(int)Direction.Right].Contains(GearSymbol) &&
+                    lines[lineNumber][match.Index + match.Value.Length + 1] != PeriodSymbol)
+                {
+                    var lr = GearRatioLRRegex();
+                    var rlMatches = lr.Match(lines[lineNumber], match.Index + match.Value.Length);
+
+                    if (rlMatches.Success)
+                    {
+                        sum += int.Parse(match.Value) * int.Parse(rlMatches.Value);
+                        seen.Add(new(match.Value, rlMatches.Value));
+                    }
+                }
+
+                var gearPosition = boundingBox[(int)Direction.Bottom].IndexOf(GearSymbol);
+
+                if (gearPosition != -1 &&
+                    lineNumber + 2 < lines.Length &&
+                    match.Index + gearPosition < lines[lineNumber + 2].Length &&
+                    lines[lineNumber + 2][match.Index + gearPosition] != PeriodSymbol)
+                {
+                    // Starting at the position of the gear, find all numbers
+                    // to the right and left of it then concatenate them to
+                    // get the part number.
+
+                    var lr = GearRatioLRRegex();
+                    var rl = GearRatioRLRegex();
+                    var lrMatches = lr.Match(lines[lineNumber + 2], match.Index + gearPosition);
+                    var rlMatches = rl.Match(lines[lineNumber + 2], match.Index + gearPosition);
+
+                    var partNumber = (rlMatches.Success ? rlMatches.Value : string.Empty)
+                        + (lrMatches.Success ? lrMatches.Value : string.Empty);
+
+                    // Found a gear
+                    if (partNumber != string.Empty)
+                    {
+                        var gearRatio = int.Parse(match.Value) * int.Parse(partNumber);
+                        sum += gearRatio;
+                    }
+                }
             }
         }
 
         return sum;
     }
 
+    enum Direction
+    {
+        Left = 0,
+        Right,
+        Top,
+        Bottom
+    }
+
     /// <summary>
     /// Capture all of the characters around a substring on the line by
     /// drawing a bounding box.
     /// </summary>
-    private List<string> GetBoundingBox(int currentLine, int matchIndex, string number)
+    /// <returns>
+    /// Collection of characters around the target number with elements: left
+    /// (one character), right (one character), top, and bottom. It's possible
+    /// for up to two of the elements to be <see cref="string.Empty"/> in cases
+    /// where the number is adjacent to an edge or in a corner.
+    /// </returns>
+    private string[] GetBoundingBox(int currentLine, int matchIndex, string number)
     {
-        var boundingBox = new List<string>();
+        var boundingBox = Enumerable.Repeat(string.Empty, 4).ToArray();
         var isFlushLeft = matchIndex == 0;
 
         // Add left
         if (!isFlushLeft)
         {
-            boundingBox.Add(lines[currentLine][matchIndex - 1].ToString());
+            boundingBox[(int)Direction.Left] = lines[currentLine][matchIndex - 1].ToString();
         }
 
         // Add right
         if (matchIndex + number.Length < lines[currentLine].Length)
         {
-            boundingBox.Add(lines[currentLine][matchIndex + number.Length].ToString());
+            boundingBox[(int)Direction.Right] = lines[currentLine][matchIndex + number.Length].ToString();
         }
 
         var startingPos = isFlushLeft ? 0 : matchIndex - 1;
@@ -122,15 +181,15 @@ public partial class Solution : BaseSolution
         // Add top
         if (currentLine > 0)
         {
-            boundingBox.Add(lines[currentLine - 1]
-                .Substring(startingPos, number.Length + endPadding));
+            boundingBox[(int)Direction.Top] = lines[currentLine - 1]
+                .Substring(startingPos, number.Length + endPadding);
         }
 
         // Add bottom
         if (currentLine < lines.Length - 1)
         {
-            boundingBox.Add(lines[currentLine + 1]
-                .Substring(startingPos, number.Length + endPadding));
+            boundingBox[(int)Direction.Bottom] = lines[currentLine + 1]
+                .Substring(startingPos, number.Length + endPadding);
         }
 
         return boundingBox;
@@ -138,4 +197,11 @@ public partial class Solution : BaseSolution
 
     [GeneratedRegex(@"\d+")]
     private static partial Regex NumberRegex();
+
+    [GeneratedRegex(@"\d+")]
+    private static partial Regex GearRatioLRRegex();
+
+    //[GeneratedRegex(@"^(?!\.)\d+", RegexOptions.RightToLeft)]
+    [GeneratedRegex(@"\d+", RegexOptions.RightToLeft)]
+    private static partial Regex GearRatioRLRegex();
 }

@@ -2,7 +2,7 @@
 
 internal class Solution : BaseSolution
 {
-    private static readonly Dictionary<string, int> NumberWords = new()
+    private static readonly Dictionary<string, int> _numberWords = new()
     {
         { "one", 1 },
         { "two", 2 },
@@ -68,7 +68,7 @@ internal class Solution : BaseSolution
                 return AsNumber(line[i]);
             }
 
-            foreach (var (numberWord, numberValue) in NumberWords)
+            foreach (var (numberWord, numberValue) in _numberWords)
             {
                 if (i + numberWord.Length <= line.Length &&
                     line.Substring(i, numberWord.Length).Contains(numberWord))
@@ -90,7 +90,7 @@ internal class Solution : BaseSolution
                 return 10 * AsNumber(line[i]);
             }
 
-            foreach (var (numberWord, numberValue) in NumberWords)
+            foreach (var (numberWord, numberValue) in _numberWords)
             {
                 if (i + numberWord.Length < line.Length &&
                     line.Substring(i, numberWord.Length) == numberWord)

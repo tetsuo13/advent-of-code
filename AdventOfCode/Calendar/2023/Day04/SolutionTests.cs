@@ -11,6 +11,7 @@ public class SolutionTests
 
     [Theory]
     [InlineData(RunMode.PartOne, 13)]
+    [InlineData(RunMode.PartTwo, 30)]
     public async Task Example(RunMode runMode, int expected)
     {
         string[] input =

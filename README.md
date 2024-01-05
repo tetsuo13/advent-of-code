@@ -1,5 +1,8 @@
 # Advent of Code
 
+[![Continuous integration](https://github.com/tetsuo13/advent-of-code/actions/workflows/ci.yml/badge.svg)](https://github.com/tetsuo13/advent-of-code/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Solutions to the [Advent of Code](https://adventofcode.com/) puzzles.
 
 ## 2023

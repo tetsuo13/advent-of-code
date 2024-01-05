@@ -11,23 +11,21 @@ internal class Solution : BaseSolution
 
     public override async Task<int> Run(RunMode runMode)
     {
+        var scratchcards = await CountCards();
+
         return runMode switch
         {
-            RunMode.PartOne => await TotalPoints(),
-            RunMode.PartTwo => await TotalScratchcards(),
+            RunMode.PartOne => TotalPoints(scratchcards),
+            RunMode.PartTwo => TotalScratchcards(scratchcards),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private async Task<int> TotalPoints()
-    {
-        var scratchcards = await CountCards();
-        return scratchcards.Sum(x => x.Worth);
-    }
+    private static int TotalPoints(IEnumerable<Scratchcard> scratchcards) =>
+        scratchcards.Sum(x => x.Worth);
 
-    private async Task<int> TotalScratchcards()
+    private static int TotalScratchcards(IList<Scratchcard> scratchcards)
     {
-        var scratchcards = await CountCards();
         var counts = Enumerable.Repeat(1, scratchcards.Count).ToArray();
 
         for (var i = 0; i < scratchcards.Count; i++)

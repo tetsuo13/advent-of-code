@@ -17,10 +17,12 @@ internal class Solution : BaseSolution
 
     public override async Task<int> Run(RunMode runMode)
     {
+        var inputLines = await ReadInput();
+
         return runMode switch
         {
-            RunMode.PartOne => await SumCalibrationValues(),
-            RunMode.PartTwo => await SumCalibrationValuesPartTwo(),
+            RunMode.PartOne => SumCalibrationValues(inputLines),
+            RunMode.PartTwo => SumCalibrationValuesPartTwo(inputLines),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
@@ -29,15 +31,12 @@ internal class Solution : BaseSolution
     /// Return a two-digit number. The first number encountered in the line will
     /// represent the tens place. The last number will be the ones place.
     /// </summary>
-    private async Task<int> SumCalibrationValues()
-    {
-        var inputLines = await ReadInput();
-        return inputLines.Sum(line =>
+    private static int SumCalibrationValues(string[] inputLines) =>
+        inputLines.Sum(line =>
         {
             return 10 * AsNumber(line.First(char.IsDigit)) +
                 AsNumber(line.Last(char.IsDigit));
         });
-    }
 
     /// <summary>
     /// Make two passes against the line: forward from beginning to end looking
@@ -45,11 +44,11 @@ internal class Solution : BaseSolution
     /// looking for the same thing. The number found from the first pass will
     /// represent the tens place, the second pass represent the ones place.
     /// </summary>
-    private async Task<int> SumCalibrationValuesPartTwo()
+    private static int SumCalibrationValuesPartTwo(string[] inputLines)
     {
         var calibrationValue = 0;
 
-        foreach (var line in await ReadInput())
+        foreach (var line in inputLines)
         {
             calibrationValue += CalibrationValueFromFront(line);
             calibrationValue += CalibrationValueFromBack(line);

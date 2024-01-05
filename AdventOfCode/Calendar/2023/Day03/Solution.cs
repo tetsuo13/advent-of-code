@@ -20,17 +20,18 @@ internal partial class Solution : BaseSolution
 
     public override async Task<int> Run(RunMode runMode)
     {
+        _lines = await ReadInput();
+
         return runMode switch
         {
-            RunMode.PartOne => await SumPartNumbers(),
-            RunMode.PartTwo => await SumGearRatios(),
+            RunMode.PartOne => SumPartNumbers(),
+            RunMode.PartTwo => SumGearRatios(),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private async Task<int> SumPartNumbers()
+    private int SumPartNumbers()
     {
-        _lines = await ReadInput();
         var sum = 0;
 
         for (var lineNumber = 0; lineNumber < _lines.Length; lineNumber++)
@@ -53,9 +54,8 @@ internal partial class Solution : BaseSolution
         return sum;
     }
 
-    private async Task<int> SumGearRatios()
+    private int SumGearRatios()
     {
-        _lines = await ReadInput();
         var sum = 0;
 
         for (var lineNumber = 0; lineNumber < _lines.Length; lineNumber++)

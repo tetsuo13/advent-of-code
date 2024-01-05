@@ -32,17 +32,18 @@ internal class Solution : BaseSolution
 
     public override async Task<int> Run(RunMode runMode)
     {
+        var lines = await ReadInput();
+
         return runMode switch
         {
-            RunMode.PartOne => await SumGameIds(),
-            RunMode.PartTwo => await SumPowerSets(),
+            RunMode.PartOne => SumGameIds(lines),
+            RunMode.PartTwo => SumPowerSets(lines),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private async Task<int> SumGameIds()
+    private int SumGameIds(string[] lines)
     {
-        var lines = await ReadInput();
         var sum = 0;
 
         for (var gameId = 0; gameId < lines.Length; gameId++)
@@ -60,9 +61,8 @@ internal class Solution : BaseSolution
         return sum;
     }
 
-    private async Task<int> SumPowerSets()
+    private static int SumPowerSets(string[] lines)
     {
-        var lines = await ReadInput();
         var sum = 0;
 
         for (var gameId = 0; gameId < lines.Length; gameId++)

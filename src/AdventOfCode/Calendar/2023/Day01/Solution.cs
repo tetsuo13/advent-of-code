@@ -1,6 +1,6 @@
 ﻿namespace AdventOfCode.Calendar._2023.Day01;
 
-internal class Solution : BaseSolution
+public class Solution : BaseSolution
 {
     private static readonly Dictionary<string, int> _numberWords = new()
     {
@@ -32,11 +32,8 @@ internal class Solution : BaseSolution
     /// represent the tens place. The last number will be the ones place.
     /// </summary>
     private static int SumCalibrationValues(string[] inputLines) =>
-        inputLines.Sum(line =>
-        {
-            return 10 * AsNumber(line.First(char.IsDigit)) +
-                AsNumber(line.Last(char.IsDigit));
-        });
+        inputLines.Sum(line => 10 * AsNumber(line.First(char.IsDigit)) +
+            AsNumber(line.Last(char.IsDigit)));
 
     /// <summary>
     /// Make two passes against the line: forward from beginning to end looking

@@ -1,12 +1,13 @@
-﻿using Xunit;
+﻿using AdventOfCode.Calendar._2023.Day02;
+using Xunit;
 
-namespace AdventOfCode.Calendar._2023.Day02;
+namespace AdventOfCode.Tests.Calendar._2023.Day02;
 
 public class SolutionTests
 {
     private class TestSolution(string[] inputLines) : Solution
     {
-        public override Task<string[]> ReadInput() => Task.FromResult(inputLines);
+        protected override Task<string[]> ReadInput() => Task.FromResult(inputLines);
     }
 
     private readonly string[] _input =

@@ -12,7 +12,7 @@ public abstract class BaseSolution
     /// Input file will reside in a subdirectory of the executable. That
     /// path will follow the same as the namespace mostly.
     /// </summary>
-    public virtual async Task<string[]> ReadInput()
+    protected virtual async Task<string[]> ReadInput()
     {
         var solutionDirectory = GetType().Namespace!
             .Replace(nameof(AdventOfCode), string.Empty)

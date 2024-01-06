@@ -11,7 +11,7 @@ namespace AdventOfCode.Calendar._2023.Day03;
 /// than implementing algorithms from scratch [poorly] -- this really showed
 /// for part 2.
 /// </summary>
-internal partial class Solution : BaseSolution
+public partial class Solution : BaseSolution
 {
     private const char PeriodSymbol = '.';
     private const char GearSymbol = '*';
@@ -74,7 +74,7 @@ internal partial class Solution : BaseSolution
                     _lines[lineNumber][match.Index - 2] != PeriodSymbol &&
                     !seen.Exists(x => x.Value == match.Value))
                 {
-                    var rl = GearRatioRLRegex();
+                    var rl = GearRatioRightLeftRegex();
                     var rlMatches = rl.Match(_lines[lineNumber], match.Index);
 
                     if (rlMatches.Success)
@@ -89,7 +89,7 @@ internal partial class Solution : BaseSolution
                 if (boundingBox[(int)Direction.Right].Contains(GearSymbol) &&
                     _lines[lineNumber][match.Index + match.Value.Length + 1] != PeriodSymbol)
                 {
-                    var lr = GearRatioLRRegex();
+                    var lr = GearRatioLeftRightRegex();
                     var rlMatches = lr.Match(_lines[lineNumber], match.Index + match.Value.Length);
 
                     if (rlMatches.Success)
@@ -110,8 +110,8 @@ internal partial class Solution : BaseSolution
                     // to the right and left of it then concatenate them to
                     // get the part number.
 
-                    var lr = GearRatioLRRegex();
-                    var rl = GearRatioRLRegex();
+                    var lr = GearRatioLeftRightRegex();
+                    var rl = GearRatioRightLeftRegex();
                     var lrMatches = lr.Match(_lines[lineNumber + 2], match.Index + gearPosition);
                     var rlMatches = rl.Match(_lines[lineNumber + 2], match.Index + gearPosition);
 
@@ -199,8 +199,8 @@ internal partial class Solution : BaseSolution
     private static partial Regex NumberRegex();
 
     [GeneratedRegex(@"\d+")]
-    private static partial Regex GearRatioLRRegex();
+    private static partial Regex GearRatioLeftRightRegex();
 
     [GeneratedRegex(@"\d+", RegexOptions.RightToLeft)]
-    private static partial Regex GearRatioRLRegex();
+    private static partial Regex GearRatioRightLeftRegex();
 }

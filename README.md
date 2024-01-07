@@ -5,6 +5,12 @@
 
 Solutions to the [Advent of Code](https://adventofcode.com/) puzzles.
 
+Run for any of the available solutions by specifying the year and day as arguments:
+
+```
+AdventOfCode --year 2023 --day 1
+```
+
 ## 2023
 
 | Puzzle | Solution | Date | Notes |

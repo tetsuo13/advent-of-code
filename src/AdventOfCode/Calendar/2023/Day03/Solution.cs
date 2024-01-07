@@ -131,7 +131,7 @@ public partial class Solution : BaseSolution
         return sum;
     }
 
-    enum Direction
+    private enum Direction
     {
         Left = 0,
         Right,

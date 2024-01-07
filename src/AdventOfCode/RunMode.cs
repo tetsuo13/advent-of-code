@@ -2,6 +2,6 @@
 
 public enum RunMode
 {
-    PartOne,
+    PartOne = 1,
     PartTwo
 }

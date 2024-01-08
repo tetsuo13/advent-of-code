@@ -5,11 +5,6 @@ namespace AdventOfCode.Tests.Calendar._2023.Day03;
 
 public class SolutionTests
 {
-    private class TestSolution(string[] inputLines) : Solution
-    {
-        protected override Task<string[]> ReadInput() => Task.FromResult(inputLines);
-    }
-
     [Theory]
     [InlineData(RunMode.PartOne, 4361)]
     [InlineData(RunMode.PartTwo, 467835)]
@@ -29,7 +24,7 @@ public class SolutionTests
                 ".664.598.."
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(expected, await solution.Run(runMode));
     }
 
@@ -43,7 +38,7 @@ public class SolutionTests
                 ".707....522....................................*..."
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(0, await solution.Run(RunMode.PartTwo));
     }
 
@@ -68,7 +63,7 @@ public class SolutionTests
                 "1.1.......56"
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(expected, await solution.Run(runMode));
     }
 
@@ -84,7 +79,7 @@ public class SolutionTests
                 "1*2..4......"
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(2, await solution.Run(RunMode.PartTwo));
     }
 
@@ -98,7 +93,7 @@ public class SolutionTests
                 "......*."
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(0, await solution.Run(RunMode.PartTwo));
     }
 
@@ -112,7 +107,7 @@ public class SolutionTests
                 "585"
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(1170, await solution.Run(RunMode.PartTwo));
     }
 
@@ -125,7 +120,7 @@ public class SolutionTests
                 "...*."
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(999, await solution.Run(RunMode.PartTwo));
     }
 }

@@ -9,10 +9,16 @@ public abstract class BaseSolution
     public abstract Task<int> Run(RunMode runMode);
 
     /// <summary>
+    /// <para>
     /// Input file will reside in a subdirectory of the executable. That
     /// path will follow the same as the namespace mostly.
+    /// </para>
+    /// <para>
+    /// Using <see langword="virtual"/> keyword so unit tests can replace
+    /// the method to mock the return.
+    /// </para>
     /// </summary>
-    protected virtual async Task<string[]> ReadInput()
+    public virtual async Task<string[]> ReadInput()
     {
         var solutionDirectory = GetType().Namespace!
             .Replace(nameof(AdventOfCode), string.Empty)

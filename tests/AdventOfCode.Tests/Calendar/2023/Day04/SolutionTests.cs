@@ -5,11 +5,6 @@ namespace AdventOfCode.Tests.Calendar._2023.Day04;
 
 public class SolutionTests
 {
-    private class TestSolution(string[] inputLines) : Solution
-    {
-        protected override Task<string[]> ReadInput() => Task.FromResult(inputLines);
-    }
-
     [Theory]
     [InlineData(RunMode.PartOne, 13)]
     [InlineData(RunMode.PartTwo, 30)]
@@ -25,7 +20,7 @@ public class SolutionTests
                 "Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"
             ];
 
-        var solution = new TestSolution(input);
+        var solution = new SolutionTestWrapper<Solution>(input);
         Assert.Equal(expected, await solution.Run(runMode));
     }
 }

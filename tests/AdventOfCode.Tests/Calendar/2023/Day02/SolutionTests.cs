@@ -5,11 +5,6 @@ namespace AdventOfCode.Tests.Calendar._2023.Day02;
 
 public class SolutionTests
 {
-    private class TestSolution(string[] inputLines) : Solution
-    {
-        protected override Task<string[]> ReadInput() => Task.FromResult(inputLines);
-    }
-
     private readonly string[] _input =
         [
             "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green",
@@ -24,7 +19,7 @@ public class SolutionTests
     [InlineData(RunMode.PartTwo, 2286)]
     public async Task SampleRecord(RunMode runMode, int expected)
     {
-        var solution = new TestSolution(_input);
+        var solution = new SolutionTestWrapper<Solution>(_input);
         Assert.Equal(expected, await solution.Run(runMode));
     }
 }

@@ -8,17 +8,17 @@ namespace AdventOfCode.Tests.Calendar;
 /// Wrapper around a specific year-day Solution class that mcks the return for
 /// the <see cref="BaseSolution.ReadInput"/> method.
 /// </summary>
-/// <typeparam name="T">Any year-day Solution class.</typeparam>
-public class SolutionTestWrapper<T>
-    where T : BaseSolution
+/// <typeparam name="TSolution">Any year-day Solution class.</typeparam>
+public class SolutionTestWrapper<TSolution>
+    where TSolution : BaseSolution
 {
-    private readonly T _theSolution;
+    private readonly TSolution _theSolution;
 
     public SolutionTestWrapper(string[] inputLines)
     {
         // Use real instance for all purposes except to mock the ReadInput
         // method.
-        _theSolution = Substitute.ForPartsOf<T>();
+        _theSolution = Substitute.ForPartsOf<TSolution>();
         _theSolution.Configure().ReadInput().Returns(Task.FromResult(inputLines));
     }
 

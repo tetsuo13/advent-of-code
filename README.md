@@ -19,3 +19,4 @@ AdventOfCode --year 2023 --day 1
 | [Cube Conundrum](https://adventofcode.com/2023/day/2) | [Solution](./src/AdventOfCode/Calendar/2023/Day02/Solution.cs) | 2023-02 | Completed |
 | [Gear Ratios](https://adventofcode.com/2023/day/3) | [Solution](./src/AdventOfCode/Calendar/2023/Day03/Solution.cs) | 2023-03 | Incomplete |
 | [Scratchcards](https://adventofcode.com/2023/day/4) | [Solution](./src/AdventOfCode/Calendar/2023/Day04/Solution.cs) | 2023-04 | Completed |
+| [Wait For It](https://adventofcode.com/2023/day/6) | [Solution](./src/AdventOfCode/Calendar/2023/Day06/Solution.cs) | 2023-06 | Completed |

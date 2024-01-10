@@ -22,6 +22,6 @@ public class SolutionTestWrapper<TSolution>
         _theSolution.Configure().ReadInput().Returns(Task.FromResult(inputLines));
     }
 
-    public async Task<int> Run(RunMode runMode) =>
+    public async Task<object> Run(RunMode runMode) =>
         await _theSolution.Run(runMode);
 }

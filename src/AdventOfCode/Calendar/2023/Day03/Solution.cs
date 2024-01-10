@@ -18,7 +18,7 @@ public partial class Solution : BaseSolution
 
     private string[] _lines = [];
 
-    public override async Task<int> Run(RunMode runMode)
+    public override async Task<object> Run(RunMode runMode)
     {
         _lines = await ReadInput();
 

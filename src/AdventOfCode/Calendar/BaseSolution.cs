@@ -6,7 +6,11 @@ public abstract class BaseSolution
 {
     private const string InputFilename = "input.txt";
 
-    public abstract Task<int> Run(RunMode runMode);
+    // Returning an object as not all solutions fit in an int. Rather than
+    // use long everywhere, this returns an object since the only place the
+    // return value is used is to write it to the console. There's an argument
+    // to be made for simply returning a string.
+    public abstract Task<object> Run(RunMode runMode);
 
     /// <summary>
     /// <para>

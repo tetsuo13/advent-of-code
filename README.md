@@ -20,3 +20,4 @@ AdventOfCode --year 2023 --day 1
 | [Gear Ratios](https://adventofcode.com/2023/day/3) | [Solution](./src/AdventOfCode/Calendar/2023/Day03/Solution.cs) | 2023-03 | Incomplete |
 | [Scratchcards](https://adventofcode.com/2023/day/4) | [Solution](./src/AdventOfCode/Calendar/2023/Day04/Solution.cs) | 2023-04 | Completed |
 | [Wait For It](https://adventofcode.com/2023/day/6) | [Solution](./src/AdventOfCode/Calendar/2023/Day06/Solution.cs) | 2023-06 | Completed |
+| [Haunted Wasteland](https://adventofcode.com/2023/day/8) | [Solution](./src/AdventOfCode/Calendar/2023/Day08/Solution.cs) | 2023-08 | Completed |

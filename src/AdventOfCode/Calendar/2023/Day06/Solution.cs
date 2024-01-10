@@ -4,7 +4,7 @@ namespace AdventOfCode.Calendar._2023.Day06;
 
 public class Solution : BaseSolution
 {
-    public override async Task<int> Run(RunMode runMode)
+    public override async Task<object> Run(RunMode runMode)
     {
         return runMode switch
         {

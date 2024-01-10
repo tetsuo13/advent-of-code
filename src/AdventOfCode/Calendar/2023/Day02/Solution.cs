@@ -9,7 +9,7 @@ public class Solution : BaseSolution
         Blue = 14
     };
 
-    public override async Task<int> Run(RunMode runMode)
+    public override async Task<object> Run(RunMode runMode)
     {
         var lines = await ReadInput();
 

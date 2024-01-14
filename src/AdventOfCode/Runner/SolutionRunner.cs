@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using AdventOfCode.Calendar;
 using Cocona;
 
@@ -24,10 +25,18 @@ public class SolutionRunner
             "Error: unexpected error instantiating solution",
             (int)ErrorExitCode.ErrorInstantiatingSolution);
 
-        Console.WriteLine("Part {0}: {1}", (int)RunMode.PartOne, await solution.Run(RunMode.PartOne));
-        Console.WriteLine("Part {0}: {1}", (int)RunMode.PartTwo, await solution.Run(RunMode.PartTwo));
+        await RunSolution(solution, RunMode.PartOne);
+        await RunSolution(solution, RunMode.PartTwo);
 
         return (int)ErrorExitCode.None;
+    }
+
+    private static async Task RunSolution(BaseSolution solution, RunMode runMode)
+    {
+        var stopWatch = Stopwatch.StartNew();
+
+        Console.WriteLine("Part {0}: {1} (completed in {2} ms)",
+            (int)runMode, await solution.Run(runMode), stopWatch.ElapsedMilliseconds);
     }
 
     /// <summary>

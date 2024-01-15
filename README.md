@@ -21,4 +21,4 @@ AdventOfCode --year 2023 --day 1
 | [Scratchcards](https://adventofcode.com/2023/day/4) | [Solution](./src/AdventOfCode/Calendar/2023/Day04/Solution.cs) | 2023-04 | Completed |
 | [Wait For It](https://adventofcode.com/2023/day/6) | [Solution](./src/AdventOfCode/Calendar/2023/Day06/Solution.cs) | 2023-06 | Completed |
 | [Haunted Wasteland](https://adventofcode.com/2023/day/8) | [Solution](./src/AdventOfCode/Calendar/2023/Day08/Solution.cs) | 2023-08 | Completed |
-| [Mirage Maintenance](https://adventofcode.com/2023/day/9) | [Solution](./src/AdventOfCode/Calendar/2023/Day09/Solution.cs) | 2023-09 | Part 1 |
+| [Mirage Maintenance](https://adventofcode.com/2023/day/9) | [Solution](./src/AdventOfCode/Calendar/2023/Day09/Solution.cs) | 2023-09 | Completed |

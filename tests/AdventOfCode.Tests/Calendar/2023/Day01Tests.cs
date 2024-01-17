@@ -1,9 +1,9 @@
 ﻿using AdventOfCode.Calendar._2023.Day01;
 using Xunit;
 
-namespace AdventOfCode.Tests.Calendar._2023.Day01;
+namespace AdventOfCode.Tests.Calendar._2023;
 
-public class SolutionTests
+public class Day01Tests
 {
     [Fact]
     public async Task PartOne()

@@ -1,9 +1,9 @@
 ﻿using AdventOfCode.Calendar._2023.Day06;
 using Xunit;
 
-namespace AdventOfCode.Tests.Calendar._2023.Day06;
+namespace AdventOfCode.Tests.Calendar._2023;
 
-public class SolutionTests
+public class Day06Tests
 {
     [Theory]
     [InlineData(RunMode.PartOne, 288)]

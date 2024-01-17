@@ -1,9 +1,9 @@
 ﻿using AdventOfCode.Calendar._2023.Day02;
 using Xunit;
 
-namespace AdventOfCode.Tests.Calendar._2023.Day02;
+namespace AdventOfCode.Tests.Calendar._2023;
 
-public class SolutionTests
+public class Day02Tests
 {
     private readonly string[] _input =
         [

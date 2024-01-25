@@ -4,18 +4,17 @@ public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)
     {
-        var hands = ParseInput(await ReadInput());
-
         return runMode switch
         {
-            RunMode.PartOne => TotalWinningsByStrength(hands),
-            RunMode.PartTwo => 0,
+            RunMode.PartOne => await TotalWinningsByStrength(false),
+            RunMode.PartTwo => await TotalWinningsByStrength(true),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private static int TotalWinningsByStrength(IEnumerable<Hand> hands) =>
-        hands.Order()
+    private async Task<int> TotalWinningsByStrength(bool withJokerRule) =>
+        ParseInput(await ReadInput())
+            .Order(new CamelCardsComparer(withJokerRule))
             .Select((hand, rank) => hand.Bid * (rank + 1))
             .Sum();
 

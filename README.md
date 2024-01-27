@@ -24,3 +24,4 @@ AdventOfCode --year 2023 --day 1
 | [Haunted Wasteland](https://adventofcode.com/2023/day/8) | [Solution](./src/AdventOfCode/Calendar/2023/Day08/Solution.cs) | 2023-08 | Completed |
 | [Mirage Maintenance](https://adventofcode.com/2023/day/9) | [Solution](./src/AdventOfCode/Calendar/2023/Day09/Solution.cs) | 2023-09 | Completed |
 | [Lens Library](https://adventofcode.com/2023/day/15) | [Solution](./src/AdventOfCode/Calendar/2023/Day15/Solution.cs) | 2023-15 | Completed |
+| [Aplenty](https://adventofcode.com/2023/day/19) | [Solution](./src/AdventOfCode/Calendar/2023/Day19/Solution.cs) | 2023-19 | Part 1 |

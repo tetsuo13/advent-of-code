@@ -31,7 +31,7 @@ public class Solution : BaseSolution
     /// Return a two-digit number. The first number encountered in the line will
     /// represent the tens place. The last number will be the ones place.
     /// </summary>
-    private static int SumCalibrationValues(string[] inputLines) =>
+    private static int SumCalibrationValues(IEnumerable<string> inputLines) =>
         inputLines.Sum(line => 10 * AsNumber(line.First(char.IsDigit)) +
             AsNumber(line.Last(char.IsDigit)));
 
@@ -41,7 +41,7 @@ public class Solution : BaseSolution
     /// looking for the same thing. The number found from the first pass will
     /// represent the tens place, the second pass represent the ones place.
     /// </summary>
-    private static int SumCalibrationValuesPartTwo(string[] inputLines)
+    private static int SumCalibrationValuesPartTwo(IEnumerable<string> inputLines)
     {
         var calibrationValue = 0;
 

@@ -2,11 +2,11 @@
 
 namespace AdventOfCode.Calendar._2023.Day02;
 
-public sealed class SetOfCubes()
+public record class SetOfCubes()
 {
-    public int Red { get; set; }
-    public int Green { get; set; }
-    public int Blue { get; set; }
+    public int Red { get; init; }
+    public int Green { get; init; }
+    public int Blue { get; init; }
 
 #pragma warning disable S1144 // Unused private types or members should be removed
     public int this[string colorName]

@@ -21,7 +21,7 @@ public class Solution : BaseSolution
         };
     }
 
-    private static int SumAcceptedRatings(Dictionary<string, List<Rule>> workflows,
+    private static int SumAcceptedRatings(IReadOnlyDictionary<string, List<Rule>> workflows,
         List<Dictionary<char, int>> partRatings)
     {
         var sum = 0;
@@ -48,7 +48,7 @@ public class Solution : BaseSolution
         return sum;
     }
 
-    private static string EvaluateRules(Dictionary<char, int> part, List<Rule> workflow)
+    private static string EvaluateRules(IReadOnlyDictionary<char, int> part, List<Rule> workflow)
     {
         foreach (var rule in workflow)
         {
@@ -60,13 +60,13 @@ public class Solution : BaseSolution
 
             var partRating = part[rule.Category];
 
-            if (rule.Op == '<' && partRating < rule.Rating)
+            switch (rule.Op)
             {
-                return rule.Destination;
-            }
-            else if (rule.Op == '>' && partRating > rule.Rating)
-            {
-                return rule.Destination;
+                case '<' when partRating < rule.Rating:
+                    return rule.Destination;
+
+                case '>' when partRating > rule.Rating:
+                    return rule.Destination;
             }
         }
 
@@ -100,8 +100,7 @@ public class Solution : BaseSolution
                 }
                 else
                 {
-                    var destination = part;
-                    rule = new Rule(destination);
+                    rule = new Rule(part);
                 }
 
                 rules.Add(rule);

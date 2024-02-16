@@ -5,7 +5,7 @@ namespace AdventOfCode.Calendar._2023.Day03;
 /// <summary>
 /// Brute force approach. For each number found on a line, draw a bounding box
 /// around it to look for a character other than period.
-/// 
+///
 /// Plenty of room for improvement. Should use Span for character manipulation.
 /// There's likely some 2D array operation libraries that should be used rather
 /// than implementing algorithms from scratch [poorly] -- this really showed
@@ -80,7 +80,7 @@ public partial class Solution : BaseSolution
                     if (rlMatches.Success)
                     {
                         sum += int.Parse(match.Value) * int.Parse(rlMatches.Value);
-                        seen.Add(new(match.Value, rlMatches.Value));
+                        seen.Add(new KeyValuePair<string, string>(match.Value, rlMatches.Value));
                     }
                 }
 
@@ -95,7 +95,7 @@ public partial class Solution : BaseSolution
                     if (rlMatches.Success)
                     {
                         sum += int.Parse(match.Value) * int.Parse(rlMatches.Value);
-                        seen.Add(new(match.Value, rlMatches.Value));
+                        seen.Add(new KeyValuePair<string, string>(match.Value, rlMatches.Value));
                     }
                 }
 

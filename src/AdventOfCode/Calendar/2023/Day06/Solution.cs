@@ -21,7 +21,7 @@ public class Solution : BaseSolution
         // Number of ways you could beat the record in each race.
         var numWays = new List<long>();
 
-        foreach (var (milliseconds, millimeters) in races)
+        foreach ((long milliseconds, long millimeters) in races)
         {
             numWays.Add(Enumerable.Range(1, (int)(milliseconds - 1))
                 .Count(i => i * (milliseconds - i) > millimeters));
@@ -36,7 +36,7 @@ public class Solution : BaseSolution
         var times = NumbersFromLine(lines[0], ignoreSpaces);
         var distances = NumbersFromLine(lines[1], ignoreSpaces);
 
-        return times.Zip(distances, (long k, long v) => new { k, v })
+        return times.Zip(distances, (k, v) => new { k, v })
             .ToDictionary(x => x.k, x => x.v)
             .AsReadOnly();
     }
@@ -47,7 +47,7 @@ public class Solution : BaseSolution
 
         if (ignoreSpaces)
         {
-            return new string[] { numbers.Replace(" ", string.Empty) }.Select(long.Parse);
+            return new[] { numbers.Replace(" ", string.Empty) }.Select(long.Parse);
         }
 
         return numbers.Split(' ', StringSplitOptions.RemoveEmptyEntries)

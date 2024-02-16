@@ -140,8 +140,7 @@ public class CamelCardsComparer : IComparer<Hand>
             // Increment the strongest label that's not a Joker by the amount
             // of Jokers in the hand then remove the Jokers.
             var strongestLabel = cards.Where(x => x.Key != JokerCard)
-                .OrderByDescending(x => x.Value)
-                .First()
+                .MaxBy(x => x.Value)
                 .Key;
 
             var copy = cards.ToDictionary();

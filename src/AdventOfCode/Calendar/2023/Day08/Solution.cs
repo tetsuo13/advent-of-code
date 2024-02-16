@@ -21,24 +21,24 @@ public class Solution : BaseSolution
     private static ulong RequiredStepsSimultaneously(List<int> instructions,
         ReadOnlyDictionary<string, string[]> network)
     {
-        static bool stopCondition(string name) => name.EndsWith('Z');
-
         var steps = network.Keys
             .Where(name => name.EndsWith('A'))
-            .Select(name => TraverseNetwork(instructions, name, network, stopCondition))
+            .Select(name => TraverseNetwork(instructions, name, network, StopCondition))
             .ToList();
 
         return LeastCommonMultiple(steps);
+
+        static bool StopCondition(string name) => name.EndsWith('Z');
     }
 
-    private static ulong RequiredSteps(List<int> instructions, ReadOnlyDictionary<string, string[]> network)
+    private static ulong RequiredSteps(IReadOnlyList<int> instructions, IReadOnlyDictionary<string, string[]> network)
     {
-        static bool stopCondition(string name) => name == "ZZZ";
-        return TraverseNetwork(instructions, "AAA", network, stopCondition);
+        return TraverseNetwork(instructions, "AAA", network, StopCondition);
+        static bool StopCondition(string name) => name == "ZZZ";
     }
 
-    private static ulong TraverseNetwork(List<int> instructions, string startingElement,
-        ReadOnlyDictionary<string, string[]> network, Func<string, bool> stop)
+    private static ulong TraverseNetwork(IReadOnlyList<int> instructions, string startingElement,
+        IReadOnlyDictionary<string, string[]> network, Func<string, bool> stop)
     {
         ulong stepsTaken = 0;
         var currentInstruction = 0;
@@ -59,12 +59,12 @@ public class Solution : BaseSolution
         return stepsTaken;
     }
 
-    private static List<int> ParseInstructions(string[] lines) =>
+    private static List<int> ParseInstructions(IReadOnlyList<string> lines) =>
         lines[0].ToCharArray()
             .Select(x => x == 'L' ? 0 : 1)
             .ToList();
 
-    private static ReadOnlyDictionary<string, string[]> ParseNetwork(string[] lines)
+    private static ReadOnlyDictionary<string, string[]> ParseNetwork(IEnumerable<string> lines)
     {
         var nodes = new Dictionary<string, string[]>();
 

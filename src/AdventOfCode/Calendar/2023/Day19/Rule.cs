@@ -2,10 +2,10 @@
 
 public readonly record struct Rule
 {
-    public char Category { get; init; }
-    public char Op { get; init; }
-    public int Rating { get; init; }
-    public string Destination { get; init; }
+    public char Category { get; }
+    public char Op { get; }
+    public int Rating { get; }
+    public string Destination { get; }
 
     public Rule(char category, char op, int rating, string destination)
     {

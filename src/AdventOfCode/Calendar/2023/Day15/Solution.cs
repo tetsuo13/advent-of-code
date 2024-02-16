@@ -17,7 +17,7 @@ public class Solution : BaseSolution
         };
     }
 
-    private static int TotalFocusingPower(string[] steps)
+    private static int TotalFocusingPower(IEnumerable<string> steps)
     {
         // It's ordered dictionaries all the way down...
         // There's opportunity to use/create a better collection type --
@@ -77,7 +77,7 @@ public class Solution : BaseSolution
         return sum;
     }
 
-    private static int SumHashSteps(string[] steps) =>
+    private static int SumHashSteps(IEnumerable<string> steps) =>
         steps.Select(CalculateHashAlgorithm).Sum();
 
     private static int CalculateHashAlgorithm(string s) =>

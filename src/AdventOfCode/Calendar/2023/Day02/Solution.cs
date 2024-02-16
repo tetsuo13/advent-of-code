@@ -21,11 +21,11 @@ public class Solution : BaseSolution
         };
     }
 
-    private int SumGameIds(string[] lines)
+    private int SumGameIds(IReadOnlyList<string> lines)
     {
         var sum = 0;
 
-        for (var gameId = 0; gameId < lines.Length; gameId++)
+        for (var gameId = 0; gameId < lines.Count; gameId++)
         {
             var sets = SetsInGame(lines[gameId]);
 
@@ -40,7 +40,7 @@ public class Solution : BaseSolution
         return sum;
     }
 
-    private static int SumPowerSets(string[] lines)
+    private static int SumPowerSets(IEnumerable<string> lines)
     {
         var sum = 0;
 
@@ -72,7 +72,7 @@ public class Solution : BaseSolution
 
             foreach (var cube in cubes)
             {
-                var (number, color) = cube.Split() switch { var x => (Convert.ToInt32(x[0]), x[1]) };
+                (int number, string color) = cube.Split() switch { var x => (Convert.ToInt32(x[0]), x[1]) };
                 set[color] = number;
             }
 

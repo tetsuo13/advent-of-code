@@ -18,7 +18,7 @@ public class Solution : BaseSolution
             .Select((hand, rank) => hand.Bid * (rank + 1))
             .Sum();
 
-    private static IEnumerable<Hand> ParseInput(string[] input) =>
+    private static IEnumerable<Hand> ParseInput(IEnumerable<string> input) =>
         input.Select(line =>
         {
             var parts = line.Split(' ');

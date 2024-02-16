@@ -5,7 +5,7 @@ public class Solution : BaseSolution
     public override async Task<object> Run(RunMode runMode)
     {
         var oasisReport = await ReadInput();
-        var histories = oasisReport.Select(x => x.Split(' ').Select(int.Parse));
+        var histories = oasisReport.Select(x => x.Split(' ').Select(int.Parse).ToList()).ToList();
 
         return runMode switch
         {
@@ -15,7 +15,7 @@ public class Solution : BaseSolution
         };
     }
 
-    private static int SumExtrapolatedValues(IEnumerable<IEnumerable<int>> histories, bool backwards)
+    private static int SumExtrapolatedValues(IEnumerable<List<int>> histories, bool backwards)
     {
         return histories
             .Select(sequence =>
@@ -26,7 +26,7 @@ public class Solution : BaseSolution
             .Sum();
     }
 
-    private static int GetNextInSequence(IEnumerable<int> sequence, bool backwards)
+    private static int GetNextInSequence(IReadOnlyCollection<int> sequence, bool backwards)
     {
         if (sequence.All(x => x == 0))
         {
@@ -34,7 +34,8 @@ public class Solution : BaseSolution
         }
 
         var nextSequence = sequence.Skip(1)
-            .Zip(sequence, (curr, prev) => backwards ? prev - curr : curr - prev);
+            .Zip(sequence, (curr, prev) => backwards ? prev - curr : curr - prev)
+            .ToList();
 
         return (backwards ? nextSequence.First() : nextSequence.Last()) +
             GetNextInSequence(nextSequence, backwards);

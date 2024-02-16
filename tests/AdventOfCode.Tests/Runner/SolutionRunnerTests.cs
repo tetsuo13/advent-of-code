@@ -7,7 +7,7 @@ public class SolutionRunnerTests
 {
     [Theory]
     [InlineData(2023, 1)]
-    // TODO: Add two-digit day example once available
+    [InlineData(2023, 15)]
     public void TryFindSolutionType_Exists(int year, int day)
     {
         var t = new SolutionRunner().TryFindSolutionType(year, day);

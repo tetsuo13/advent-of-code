@@ -5,7 +5,7 @@ using NSubstitute.Extensions;
 namespace AdventOfCode.Tests.Calendar;
 
 /// <summary>
-/// Wrapper around a specific year-day Solution class that mcks the return for
+/// Wrapper around a specific year-day Solution class that mocks the return for
 /// the <see cref="BaseSolution.ReadInput"/> method.
 /// </summary>
 /// <typeparam name="TSolution">Any year-day Solution class.</typeparam>

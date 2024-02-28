@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using AdventOfCode.Utilities.Mathematics;
 
 namespace AdventOfCode.Calendar._2023.Day08;
 
@@ -18,7 +19,7 @@ public class Solution : BaseSolution
         };
     }
 
-    private static ulong RequiredStepsSimultaneously(List<int> instructions,
+    private static ulong RequiredStepsSimultaneously(IReadOnlyList<int> instructions,
         ReadOnlyDictionary<string, string[]> network)
     {
         var steps = network.Keys
@@ -26,7 +27,7 @@ public class Solution : BaseSolution
             .Select(name => TraverseNetwork(instructions, name, network, StopCondition))
             .ToList();
 
-        return LeastCommonMultiple(steps);
+        return NumericUtilities.LeastCommonMultiple(steps);
 
         static bool StopCondition(string name) => name.EndsWith('Z');
     }
@@ -77,27 +78,5 @@ public class Solution : BaseSolution
         }
 
         return nodes.AsReadOnly();
-    }
-
-    /// <summary>
-    /// Calculate the least common multiple across a set of numbers.
-    /// </summary>
-    private static ulong LeastCommonMultiple(IEnumerable<ulong> numbers) =>
-        numbers.Aggregate((a, b) => a * b / GreatestCommonDivisor(a, b));
-
-    /// <summary>
-    /// Calculate the greatest common divisor of two numbers.
-    /// </summary>
-    private static ulong GreatestCommonDivisor(ulong a, ulong b)
-    {
-        // Division-based version of the Euclidean algorithm.
-        while (b != 0)
-        {
-            var temp = b;
-            b = a % b;
-            a = temp;
-        }
-
-        return a;
     }
 }

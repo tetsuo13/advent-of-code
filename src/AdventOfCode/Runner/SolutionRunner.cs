@@ -51,7 +51,7 @@ public class SolutionRunner
     /// The Type matching the requested year and day or <see langword="null"/>
     /// if there isn't one available.
     /// </returns>
-    internal Type? TryFindSolutionType(int year, int day)
+    internal static Type? TryFindSolutionType(int year, int day)
     {
         var ns = new List<string>
         {

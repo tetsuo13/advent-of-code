@@ -57,11 +57,11 @@ public class SolutionRunner
         {
             nameof(AdventOfCode),
             nameof(Calendar),
-            $"_{year}",
+            $"Year{year}",
             $"Day{day:D2}",
 
             // A direct reference to a solution, any year/month will do.
-            nameof(Calendar._2023.Day01.Solution)
+            nameof(Calendar.Year2023.Day01.Solution)
         };
 
         var className = string.Join(".", ns);

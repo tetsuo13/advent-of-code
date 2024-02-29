@@ -1,7 +1,9 @@
 ﻿using System.Collections.Specialized;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Calendar.Year2023.Day15;
 
+[PuzzleInfo(2023, 15, "Lens Library")]
 public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)

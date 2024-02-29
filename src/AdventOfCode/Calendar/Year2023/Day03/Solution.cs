@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Calendar.Year2023.Day03;
 
@@ -11,6 +12,7 @@ namespace AdventOfCode.Calendar.Year2023.Day03;
 /// than implementing algorithms from scratch [poorly] -- this really showed
 /// for part 2.
 /// </summary>
+[PuzzleInfo(2023, 3, "Gear Ratios")]
 public partial class Solution : BaseSolution
 {
     private const char PeriodSymbol = '.';

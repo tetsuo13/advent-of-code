@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using AdventOfCode.Common;
 using AdventOfCode.Utilities.Mathematics;
 
 namespace AdventOfCode.Calendar.Year2023.Day08;
 
+[PuzzleInfo(2023, 8, "Haunted Wasteland")]
 public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)

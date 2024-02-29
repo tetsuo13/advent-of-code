@@ -1,4 +1,5 @@
 ﻿using AdventOfCode.Calendar.Year2023.Day03;
+using AdventOfCode.Common;
 using Xunit;
 
 namespace AdventOfCode.Tests.Calendar.Year2023;

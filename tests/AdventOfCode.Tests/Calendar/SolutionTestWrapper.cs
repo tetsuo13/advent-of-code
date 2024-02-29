@@ -1,4 +1,5 @@
 ﻿using AdventOfCode.Calendar;
+using AdventOfCode.Common;
 using NSubstitute;
 using NSubstitute.Extensions;
 

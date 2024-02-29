@@ -1,5 +1,8 @@
-﻿namespace AdventOfCode.Calendar.Year2023.Day09;
+﻿using AdventOfCode.Common;
 
+namespace AdventOfCode.Calendar.Year2023.Day09;
+
+[PuzzleInfo(2023, 9, "Mirage Maintenance")]
 public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)

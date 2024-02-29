@@ -1,5 +1,8 @@
-﻿namespace AdventOfCode.Calendar.Year2023.Day02;
+﻿using AdventOfCode.Common;
 
+namespace AdventOfCode.Calendar.Year2023.Day02;
+
+[PuzzleInfo(2023, 2, "Cube Conundrum")]
 public class Solution : BaseSolution
 {
     private readonly SetOfCubes _constraint = new()

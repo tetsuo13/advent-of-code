@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Calendar.Year2023.Day06;
 
+[PuzzleInfo(2023, 6, "Wait For It")]
 public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)

@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cocona.Lite" Version="2.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Calendar\Year2023\*\input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

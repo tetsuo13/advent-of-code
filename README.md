@@ -5,11 +5,7 @@
 
 Solutions to the [Advent of Code](https://adventofcode.com/) puzzles.
 
-Run for any of the available solutions by specifying the year and day as arguments:
-
-```
-AdventOfCode --year 2023 --day 1
-```
+The console application will run all solutions that have puzzle inputs. Drop your puzzle input file, named `input.txt`, beside the `Solution.cs` for any years and days to run.  
 
 ## 2023
 

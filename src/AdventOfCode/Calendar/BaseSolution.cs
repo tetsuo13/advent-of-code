@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Calendar;
 

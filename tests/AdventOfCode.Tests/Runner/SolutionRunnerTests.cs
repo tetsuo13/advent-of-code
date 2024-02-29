@@ -6,9 +6,9 @@ namespace AdventOfCode.Tests.Runner;
 public class SolutionRunnerTests
 {
     [Theory]
-    [InlineData(2023, 1)]
-    [InlineData(2023, 15)]
-    public void TryFindSolutionType_Exists(int year, int day)
+    [InlineData("Year2023", "Day01")]
+    [InlineData("Year2023", "Day15")]
+    public void TryFindSolutionType_Exists(string year, string day)
     {
         var t = SolutionRunner.TryFindSolutionType(year, day);
         Assert.NotNull(t);
@@ -17,7 +17,7 @@ public class SolutionRunnerTests
     [Fact]
     public void TryFindSolutionType_YearMonthNotFound()
     {
-        var t = SolutionRunner.TryFindSolutionType(1999, 4);
+        var t = SolutionRunner.TryFindSolutionType("Year1999", "Day04");
         Assert.Null(t);
     }
 }

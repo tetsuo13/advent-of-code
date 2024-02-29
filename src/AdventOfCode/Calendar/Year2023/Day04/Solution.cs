@@ -1,5 +1,8 @@
-﻿namespace AdventOfCode.Calendar.Year2023.Day04;
+﻿using AdventOfCode.Common;
 
+namespace AdventOfCode.Calendar.Year2023.Day04;
+
+[PuzzleInfo(2023, 4, "Scratchcards")]
 public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)

@@ -1,5 +1,8 @@
-﻿namespace AdventOfCode.Calendar.Year2023.Day01;
+﻿using AdventOfCode.Common;
 
+namespace AdventOfCode.Calendar.Year2023.Day01;
+
+[PuzzleInfo(2023, 1, "Trebuchet?!")]
 public class Solution : BaseSolution
 {
     private static readonly Dictionary<string, int> _numberWords = new()

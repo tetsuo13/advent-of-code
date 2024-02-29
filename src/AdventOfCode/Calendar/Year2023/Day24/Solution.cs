@@ -1,10 +1,11 @@
 ﻿using System.Numerics;
-using AdventOfCode.Calendar.Year2023.Day24;
+using AdventOfCode.Common;
 using AdventOfCode.Utilities.Geometry;
 using AdventOfCode.Utilities.Mathematics;
 
 namespace AdventOfCode.Calendar.Year2023.Day24;
 
+[PuzzleInfo(2023, 24, "Never Tell Me The Odds")]
 public class Solution : BaseSolution
 {
     private Range<BigInteger> _testArea;

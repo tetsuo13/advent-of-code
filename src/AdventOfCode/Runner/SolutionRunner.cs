@@ -1,12 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Reflection;
 using AdventOfCode.Calendar;
-using Cocona;
+using AdventOfCode.Calendar.Year2023.Day01;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Runner;
 
-public class SolutionRunner
+public static class SolutionRunner
 {
+    private const string InputFileName = "input.txt";
+
     private enum ErrorExitCode
     {
         None,
@@ -14,29 +17,62 @@ public class SolutionRunner
         ErrorInstantiatingSolution
     }
 
-    public async Task<int> Run([Option(Description = "Four digit year")] int year,
-        [Option(Description = "Day in month of December")][Range(1, 31)] int day)
+    public static async Task<int> SolutionsWithInputs()
     {
-        var solutionType = TryFindSolutionType(year, day) ?? throw new CommandExitedException(
-            $"Error: no solution by that year/day combo, check README.md for available solutions.",
-            (int)ErrorExitCode.YearDayNotFound);
+        var inputFiles = Directory.GetFiles(Directory.GetCurrentDirectory(), InputFileName, SearchOption.AllDirectories)
+            .OrderBy(x => x);
 
-        var solution = Activator.CreateInstance(solutionType) as BaseSolution ?? throw new CommandExitedException(
-            "Error: unexpected error instantiating solution",
-            (int)ErrorExitCode.ErrorInstantiatingSolution);
+        foreach (var input in inputFiles)
+        {
+            var parts = input.Split(Path.DirectorySeparatorChar);
+            var year = parts[^3];
+            var day = parts[^2];
+            var solutionType = TryFindSolutionType(year, day);
 
-        await RunSolution(solution, RunMode.PartOne);
-        await RunSolution(solution, RunMode.PartTwo);
+            if (solutionType is null)
+            {
+                Console.WriteLine("Error: no solution found in same directory for {0}", input);
+                return (int)ErrorExitCode.YearDayNotFound;
+            }
+
+            if (Activator.CreateInstance(solutionType) is not BaseSolution solution)
+            {
+                Console.WriteLine("Error: unexpected error instantiating solution for {0} {1}", year, day);
+                return (int)ErrorExitCode.ErrorInstantiatingSolution;
+            }
+
+            var puzzleInfo = solution.GetType()
+                .GetCustomAttributes(typeof(PuzzleInfoAttribute))
+                .SingleOrDefault();
+
+            if (puzzleInfo is null)
+            {
+                Console.WriteLine("Error: missing {0} attribute on solution for {1} {2}",
+                    nameof(PuzzleInfoAttribute), year, day);
+                continue;
+            }
+
+            await RunSolution(solution, (PuzzleInfoAttribute)puzzleInfo);
+        }
 
         return (int)ErrorExitCode.None;
     }
 
-    private static async Task RunSolution(BaseSolution solution, RunMode runMode)
+    private static async Task RunSolution(BaseSolution solution, PuzzleInfoAttribute puzzleInfo)
     {
-        var stopWatch = Stopwatch.StartNew();
+        Console.WriteLine("--- Year {0} Day {1}: {2} ---", puzzleInfo.Year, puzzleInfo.Day, puzzleInfo.Name);
 
-        Console.WriteLine("Part {0}: {1} (completed in {2} ms)",
-            (int)runMode, await solution.Run(runMode), stopWatch.ElapsedMilliseconds);
+        await RunFor(RunMode.PartOne);
+        await RunFor(RunMode.PartTwo);
+        Console.WriteLine();
+        return;
+
+        async Task RunFor(RunMode mode)
+        {
+            var stopWatch = Stopwatch.StartNew();
+            Console.WriteLine("Part {0}: {1} ({2} ms)",
+                (int)mode, await solution.Run(mode), stopWatch.ElapsedMilliseconds);
+        }
     }
 
     /// <summary>
@@ -51,17 +87,17 @@ public class SolutionRunner
     /// The Type matching the requested year and day or <see langword="null"/>
     /// if there isn't one available.
     /// </returns>
-    internal static Type? TryFindSolutionType(int year, int day)
+    internal static Type? TryFindSolutionType(string year, string day)
     {
         var ns = new List<string>
         {
             nameof(AdventOfCode),
             nameof(Calendar),
-            $"Year{year}",
-            $"Day{day:D2}",
+            year,
+            day,
 
             // A direct reference to a solution, any year/month will do.
-            nameof(Calendar.Year2023.Day01.Solution)
+            nameof(Solution)
         };
 
         var className = string.Join(".", ns);

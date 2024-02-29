@@ -1,5 +1,8 @@
-﻿namespace AdventOfCode.Calendar.Year2023.Day07;
+﻿using AdventOfCode.Common;
 
+namespace AdventOfCode.Calendar.Year2023.Day07;
+
+[PuzzleInfo(2023, 7, "Camel Cards")]
 public class Solution : BaseSolution
 {
     public override async Task<object> Run(RunMode runMode)

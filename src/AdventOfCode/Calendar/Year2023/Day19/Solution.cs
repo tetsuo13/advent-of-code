@@ -1,5 +1,8 @@
-﻿namespace AdventOfCode.Calendar.Year2023.Day19;
+﻿using AdventOfCode.Common;
 
+namespace AdventOfCode.Calendar.Year2023.Day19;
+
+[PuzzleInfo(2023, 19, "Aplenty")]
 public class Solution : BaseSolution
 {
     private const string StartingWorkflowName = "in";

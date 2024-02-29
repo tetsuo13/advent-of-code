@@ -8,7 +8,7 @@ namespace AdventOfCode.Runner;
 
 public static class SolutionRunner
 {
-    private const string InputFileName = "input.txt";
+    public const string InputFileName = "input.txt";
 
     private enum ErrorExitCode
     {

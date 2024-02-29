@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
 using AdventOfCode.Common;
+using AdventOfCode.Runner;
 
 namespace AdventOfCode.Calendar;
 
 public abstract class BaseSolution
 {
-    private const string InputFilename = "input.txt";
-
     // Returning an object as not all solutions fit in an int. Rather than
     // use long everywhere, this returns an object since the only place the
     // return value is used is to write it to the console. There's an argument
@@ -33,7 +32,7 @@ public abstract class BaseSolution
         solutionDirectory = solutionDirectory[1..];
 
         var inputFile = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!,
-            solutionDirectory, InputFilename);
+            solutionDirectory, SolutionRunner.InputFileName);
 
         if (!File.Exists(inputFile))
         {

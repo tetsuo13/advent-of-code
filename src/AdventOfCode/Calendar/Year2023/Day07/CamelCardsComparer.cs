@@ -65,7 +65,8 @@ public class CamelCardsComparer : IComparer<Hand>
         {
             return 1;
         }
-        else if (xStrength < yStrength)
+
+        if (xStrength < yStrength)
         {
             return -1;
         }

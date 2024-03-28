@@ -2,7 +2,7 @@
 
 namespace AdventOfCode.Calendar.Year2023.Day02;
 
-public record class SetOfCubes()
+public record SetOfCubes
 {
     public int Red { get; init; }
     public int Green { get; init; }

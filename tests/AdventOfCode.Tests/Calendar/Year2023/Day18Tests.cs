@@ -6,8 +6,10 @@ namespace AdventOfCode.Tests.Calendar.Year2023;
 
 public class Day18Tests
 {
-    [Fact]
-    public async Task Example()
+    [Theory]
+    [InlineData(RunMode.PartOne, 62)]
+    [InlineData(RunMode.PartTwo, 952408144115)]
+    public async Task Example(RunMode runMode, long expected)
     {
         string[] lines =
             [
@@ -28,6 +30,6 @@ public class Day18Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(lines);
-        Assert.Equivalent(62, await solution.Run(RunMode.PartOne));
+        Assert.Equivalent(expected, await solution.Run(runMode));
     }
 }

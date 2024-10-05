@@ -1,11 +1,27 @@
 ﻿using System.Reflection;
 using AdventOfCode.Common;
-using AdventOfCode.Runner;
+using AdventOfCode.Runner.Utils;
 
 namespace AdventOfCode.Calendar;
 
 public abstract class BaseSolution
 {
+    public override string ToString()
+    {
+        var puzzleInfo = GetType().GetPuzzleInfoAttribute();
+        // Can't do this because it'll get truncated
+        if (puzzleInfo is null)
+        {
+            return $"Missing {nameof(PuzzleInfoAttribute)} on class";
+        }
+
+        return $"{puzzleInfo.Year}-12-{puzzleInfo.Day:D2}: {puzzleInfo.Name}";
+        return puzzleInfo is not null ? puzzleInfo.Name : $"Missing {nameof(PuzzleInfoAttribute)} on class";
+    }
+
+    public int Year => GetType().GetPuzzleInfoAttribute()?.Year ?? 0;
+    public int Day => GetType().GetPuzzleInfoAttribute()?.Day ?? 0;
+
     // Returning an object as not all solutions fit in an int. Rather than
     // use long everywhere, this returns an object since the only place the
     // return value is used is to write it to the console. There's an argument
@@ -25,6 +41,7 @@ public abstract class BaseSolution
         var solutionDirectory = GetType().Namespace!
             .Replace(nameof(AdventOfCode), string.Empty)
             // Years will have leading underscore
+            // TODO: No they won't, not since https://github.com/tetsuo13/advent-of-code/commit/201e78bdd3f17034c7f40660a7cbaea6e5f726b2
             .Replace("_", string.Empty)
             .Replace(Type.Delimiter, Path.DirectorySeparatorChar);
 
@@ -32,7 +49,7 @@ public abstract class BaseSolution
         solutionDirectory = solutionDirectory[1..];
 
         var inputFile = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!,
-            solutionDirectory, SolutionRunner.InputFileName);
+            solutionDirectory, SolutionFinder.InputFileName);
 
         if (!File.Exists(inputFile))
         {

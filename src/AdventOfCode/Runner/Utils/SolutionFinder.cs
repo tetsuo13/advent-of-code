@@ -9,11 +9,27 @@ public static class SolutionFinder
 {
     public const string InputFileName = "input.txt";
 
+    /// <summary>
+    /// Gets the absolute path to the assembly file. This may not always be
+    /// current directory. When running benchmarks, this will be an entirely
+    /// new subdirectory from the assembly file as it will generate new
+    /// projects.
+    /// </summary>
+    private static string CurrentPath => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
+                                         throw new InvalidOperationException();
+
+    /// <summary>
+    /// Given the starting directory of the assembly, recursively search for
+    /// input files (<see cref="InputFileName"/>) and return a collection of
+    /// <see cref="BaseSolution"/> classes in the same directory as those
+    /// input files.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public static List<BaseSolution> FindSolutionsWithInputs()
     {
         var solutions = new List<BaseSolution>();
-        // TODO: Not current directory but assembly directory.
-        var inputFiles = Directory.GetFiles(Directory.GetCurrentDirectory(), InputFileName, SearchOption.AllDirectories)
+        var inputFiles = Directory.GetFiles(CurrentPath, InputFileName, SearchOption.AllDirectories)
             .OrderBy(x => x);
 
         foreach (var input in inputFiles)
@@ -25,23 +41,17 @@ public static class SolutionFinder
 
             if (solutionType is null)
             {
-                Console.WriteLine("Error: no solution found in same directory for {0}", input);
-                throw new Exception();
-                //return (int)ErrorExitCode.YearDayNotFound;
+                throw new Exception($"Error: no solution found in same directory for {input}");
             }
 
             if (Activator.CreateInstance(solutionType) is not BaseSolution solution)
             {
-                Console.WriteLine("Error: unexpected error instantiating solution for {0} {1}", year, day);
-                throw new Exception();
-                //return (int)ErrorExitCode.ErrorInstantiatingSolution;
+                throw new Exception($"Error: unexpected error instantiating solution for {year} {day}");
             }
 
             // TODO: Validate each solution is unique for the year and day.
             // Ensure each solution is marked.
-            var puzzleInfo = solution.GetType()
-                .GetCustomAttributes(typeof(PuzzleInfoAttribute))
-                .SingleOrDefault();
+            var puzzleInfo = solution.GetType().GetPuzzleInfoAttribute();
 
             if (puzzleInfo is null)
             {
@@ -77,7 +87,9 @@ public static class SolutionFinder
             year,
             day,
 
-            // A direct reference to a solution, any year/month will do.
+            // A direct reference to a solution, any year and day will do.
+            // We're looking for a class named `Solution` specifically, so
+            // `BaseSolution` won't work here.
             nameof(Solution)
         };
 

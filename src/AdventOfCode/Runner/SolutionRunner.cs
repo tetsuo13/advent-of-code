@@ -13,24 +13,19 @@ public class SolutionRunner
     {
         foreach (var solution in _solutionsToRun)
         {
-            await RunSolution(solution);
-        }
-    }
+            Console.WriteLine("--- {0} ---", solution);
 
-    private static async Task RunSolution(BaseSolution solution)
-    {
-        Console.WriteLine("--- {0} ---", solution);
+            await RunFor(RunMode.PartOne);
+            await RunFor(RunMode.PartTwo);
+            Console.WriteLine();
+            return;
 
-        await RunFor(RunMode.PartOne);
-        await RunFor(RunMode.PartTwo);
-        Console.WriteLine();
-        return;
-
-        async Task RunFor(RunMode mode)
-        {
-            var stopWatch = Stopwatch.StartNew();
-            Console.WriteLine("Part {0}: {1} ({2} ms)",
-                (int)mode, await solution.Run(mode), stopWatch.ElapsedMilliseconds);
+            async Task RunFor(RunMode mode)
+            {
+                var stopWatch = Stopwatch.StartNew();
+                Console.WriteLine("Part {0}: {1} ({2} ms)",
+                    (int)mode, await solution.Run(mode), stopWatch.ElapsedMilliseconds);
+            }
         }
     }
 }

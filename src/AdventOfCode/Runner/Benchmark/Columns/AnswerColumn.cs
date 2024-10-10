@@ -30,8 +30,8 @@ public class AnswerColumn : IColumn
     public string Id => nameof(AnswerColumn);
     public string ColumnName => "Answer";
     public bool AlwaysShow => true;
-    public ColumnCategory Category => ColumnCategory.Job;
-    public int PriorityInCategory => 3; // Show after solution name and part columns
+    public ColumnCategory Category => ColumnCategory.Params;
+    public int PriorityInCategory => 0; // Show after solution name and part columns
     public bool IsNumeric => false;
     public UnitType UnitType => UnitType.Dimensionless;
     public string Legend => "The answer to the solution and part";

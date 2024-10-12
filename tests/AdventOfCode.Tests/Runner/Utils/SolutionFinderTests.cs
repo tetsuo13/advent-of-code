@@ -1,4 +1,5 @@
-﻿using AdventOfCode.Runner.Utils;
+﻿using AdventOfCode.Calendar;
+using AdventOfCode.Runner.Utils;
 using Xunit;
 
 namespace AdventOfCode.Tests.Runner.Utils;
@@ -8,16 +9,16 @@ public class SolutionFinderTests
     [Theory]
     [InlineData("Year2023", "Day01")]
     [InlineData("Year2023", "Day15")]
-    public void TryFindSolutionType_Exists(string year, string day)
+    public void TryFindSolutionType_Exists_ReturnsType(string year, string day)
     {
-        var t = SolutionFinder.TryFindSolutionType(year, day);
-        Assert.NotNull(t);
+        var actual = SolutionFinder.TryFindSolutionType(year, day);
+        Assert.NotNull(actual);
     }
 
     [Fact]
-    public void TryFindSolutionType_YearMonthNotFound()
+    public void TryFindSolutionType_YearMonthNotFound_ReturnsNull()
     {
-        var t = SolutionFinder.TryFindSolutionType("Year1999", "Day04");
-        Assert.Null(t);
+        var actual = SolutionFinder.TryFindSolutionType("Year2038", "Day04");
+        Assert.Null(actual);
     }
 }

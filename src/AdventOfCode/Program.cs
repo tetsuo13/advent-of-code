@@ -1,3 +1,7 @@
 ﻿using AdventOfCode.Runner;
 
-return await SolutionRunner.SolutionsWithInputs();
+#if RELEASE
+BenchmarkDotNet.Running.BenchmarkRunner.Run<BenchmarkSolutionRunner>();
+#else
+await new SolutionRunner().RunAsync();
+#endif

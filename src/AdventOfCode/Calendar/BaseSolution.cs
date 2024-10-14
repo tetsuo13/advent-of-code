@@ -38,9 +38,6 @@ public abstract class BaseSolution
     {
         var solutionDirectory = GetType().Namespace!
             .Replace(nameof(AdventOfCode), string.Empty)
-            // Years will have leading underscore
-            // TODO: No they won't, not since https://github.com/tetsuo13/advent-of-code/commit/201e78bdd3f17034c7f40660a7cbaea6e5f726b2
-            .Replace("_", string.Empty)
             .Replace(Type.Delimiter, Path.DirectorySeparatorChar);
 
         // Remove leading separator left behind from first substitution

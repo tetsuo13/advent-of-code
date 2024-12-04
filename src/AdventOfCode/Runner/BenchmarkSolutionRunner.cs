@@ -29,33 +29,28 @@ public class BenchmarkSolutionRunner
     [ParamsSource(nameof(SolutionsToRun))]
     public BaseSolution Solution;
 
-    public IEnumerable<BaseSolution> SolutionsToRun { get; init; }
+    public IEnumerable<BaseSolution> SolutionsToRun { get; init; } = SolutionFinder.FindSolutionsWithInputs();
 
     [ParamsAllValues]
     public RunMode PartToRun;
 
-    private Dictionary<string, string> SolutionOutputPath = [];
-
-    private object _solutionAnswer;
+    /// <summary>
+    /// Should be set during benchmark run for use during cleanup phase.
+    /// </summary>
+    private object? _solutionAnswer;
 
     [GlobalCleanup]
     public void GlobalCleanup()
     {
-        SolutionRecorder.SaveAnswer(Solution, PartToRun, _solutionAnswer);
-    }
-
-    public BenchmarkSolutionRunner()
-    {
-        SolutionsToRun = SolutionFinder.FindSolutionsWithInputs();
+        SolutionRecorder.SaveAnswer(Solution, PartToRun,
+            _solutionAnswer ?? throw new InvalidOperationException("Answer is null"));
     }
 
     [Benchmark]
     public async Task<object> Benchmark()
     {
         var output = await Solution.Run(PartToRun);
-
         _solutionAnswer = output;
-
         return output;
     }
 }

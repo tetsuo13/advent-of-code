@@ -18,9 +18,9 @@ public class Solution : BaseSolution
         { "nine", 9 },
     };
 
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var inputLines = await ReadInput();
+        var inputLines = ReadInput();
 
         return runMode switch
         {

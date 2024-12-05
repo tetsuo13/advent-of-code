@@ -47,9 +47,9 @@ public class BenchmarkSolutionRunner
     }
 
     [Benchmark]
-    public async Task<object> Benchmark()
+    public object Benchmark()
     {
-        var output = await Solution.Run(PartToRun);
+        var output = Solution.Run(PartToRun);
         _solutionAnswer = output;
         return output;
     }

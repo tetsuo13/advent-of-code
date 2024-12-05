@@ -20,9 +20,9 @@ public partial class Solution : BaseSolution
 
     private string[] _lines = [];
 
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        _lines = await ReadInput();
+        _lines = ReadInput();
 
         return runMode switch
         {

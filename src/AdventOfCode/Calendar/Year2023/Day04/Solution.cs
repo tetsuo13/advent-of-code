@@ -5,9 +5,9 @@ namespace AdventOfCode.Calendar.Year2023.Day04;
 [PuzzleInfo(2023, 4, "Scratchcards")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var scratchcards = await CountCards();
+        var scratchcards = CountCards();
 
         return runMode switch
         {
@@ -35,9 +35,9 @@ public class Solution : BaseSolution
         return counts.Sum();
     }
 
-    private async Task<List<Scratchcard>> CountCards()
+    private List<Scratchcard> CountCards()
     {
-        var cards = await ReadInput();
+        var cards = ReadInput();
         var scratchcards = new List<Scratchcard>();
 
         foreach (var card in cards)

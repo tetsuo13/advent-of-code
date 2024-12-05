@@ -15,9 +15,9 @@ public class Solution : BaseSolution
         Right
     }
 
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var digPlan = await ReadInput();
+        var digPlan = ReadInput();
 
         return runMode switch
         {

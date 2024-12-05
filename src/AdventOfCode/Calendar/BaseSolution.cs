@@ -24,7 +24,7 @@ public abstract class BaseSolution
     // return value is used is to write it to the console. There's an argument
     // to be made for simply returning a string.
     // TODO: Just return a string. We don't like object.
-    public abstract Task<object> Run(RunMode runMode);
+    public abstract object Run(RunMode runMode);
 
     /// <summary>
     /// Input file will reside in a subdirectory of the executable. That
@@ -34,7 +34,7 @@ public abstract class BaseSolution
     /// Using <see langword="virtual"/> keyword so unit tests can mock the
     /// method without having to resort to reading files.
     /// </remarks>
-    public virtual async Task<string[]> ReadInput()
+    public virtual string[] ReadInput()
     {
         var solutionDirectory = GetType().Namespace!
             .Replace(nameof(AdventOfCode), string.Empty)
@@ -51,6 +51,6 @@ public abstract class BaseSolution
             throw new FileNotFoundException($"Input file not found in {inputFile}");
         }
 
-        return await File.ReadAllLinesAsync(inputFile);
+        return File.ReadAllLines(inputFile);
     }
 }

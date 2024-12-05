@@ -5,9 +5,9 @@ namespace AdventOfCode.Calendar.Year2024.Day01;
 [PuzzleInfo(2024, 1, "Historian Hysteria")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var inputLines = await ReadInput();
+        var inputLines = ReadInput();
 
         return runMode switch
         {

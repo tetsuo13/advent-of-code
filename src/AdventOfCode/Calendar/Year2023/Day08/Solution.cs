@@ -7,9 +7,9 @@ namespace AdventOfCode.Calendar.Year2023.Day08;
 [PuzzleInfo(2023, 8, "Haunted Wasteland")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var lines = await ReadInput();
+        var lines = ReadInput();
         var instructions = ParseInstructions(lines);
         var network = ParseNetwork(lines);
 

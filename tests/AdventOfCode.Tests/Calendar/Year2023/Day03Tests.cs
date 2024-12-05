@@ -9,7 +9,7 @@ public class Day03Tests
     [Theory]
     [InlineData(RunMode.PartOne, 4361)]
     [InlineData(RunMode.PartTwo, 467835)]
-    public async Task ExampleEngineSchematic(RunMode runMode, int expected)
+    public void ExampleEngineSchematic(RunMode runMode, int expected)
     {
         string[] input =
             [
@@ -26,11 +26,11 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 
     [Fact]
-    public async Task PartNumberNotDirectlyUnderGear()
+    public void PartNumberNotDirectlyUnderGear()
     {
         string[] input =
             [
@@ -40,13 +40,13 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(0, await solution.Run(RunMode.PartTwo));
+        Assert.Equal(0, solution.Run(RunMode.PartTwo));
     }
 
     [Theory]
     [InlineData(RunMode.PartOne, 413)]
     [InlineData(RunMode.PartTwo, 6756, Skip = "Fails")]
-    public async Task ExampleEngineSchematic2(RunMode runMode, int expected)
+    public void ExampleEngineSchematic2(RunMode runMode, int expected)
     {
         string[] input =
             [
@@ -65,11 +65,11 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 
     [Fact]
-    public async Task ExampleEngineSchematic3()
+    public void ExampleEngineSchematic3()
     {
         string[] input =
             [
@@ -81,11 +81,11 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(2, await solution.Run(RunMode.PartTwo));
+        Assert.Equal(2, solution.Run(RunMode.PartTwo));
     }
 
     [Fact]
-    public async Task ExampleEngineSchematic4()
+    public void ExampleEngineSchematic4()
     {
         string[] input =
             [
@@ -95,11 +95,11 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(0, await solution.Run(RunMode.PartTwo));
+        Assert.Equal(0, solution.Run(RunMode.PartTwo));
     }
 
     [Fact]
-    public async Task ExampleEngineSchematic5()
+    public void ExampleEngineSchematic5()
     {
         string[] input =
             [
@@ -109,11 +109,11 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(1170, await solution.Run(RunMode.PartTwo));
+        Assert.Equal(1170, solution.Run(RunMode.PartTwo));
     }
 
     [Fact(Skip = "Fails")]
-    public async Task ExampleEngineSchematic6()
+    public void ExampleEngineSchematic6()
     {
         string[] input =
             [
@@ -122,6 +122,6 @@ public class Day03Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(999, await solution.Run(RunMode.PartTwo));
+        Assert.Equal(999, solution.Run(RunMode.PartTwo));
     }
 }

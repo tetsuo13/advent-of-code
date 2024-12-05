@@ -20,9 +20,8 @@ public class SolutionTestWrapper<TSolution>
         // Use real instance for all purposes except to mock the ReadInput
         // method.
         _theSolution = Substitute.ForPartsOf<TSolution>();
-        _theSolution.Configure().ReadInput().Returns(Task.FromResult(inputLines));
+        _theSolution.Configure().ReadInput().Returns(inputLines);
     }
 
-    public async Task<object> Run(RunMode runMode) =>
-        await _theSolution.Run(runMode);
+    public object Run(RunMode runMode) => _theSolution.Run(runMode);
 }

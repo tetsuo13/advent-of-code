@@ -6,19 +6,19 @@ namespace AdventOfCode.Calendar.Year2023.Day06;
 [PuzzleInfo(2023, 6, "Wait For It")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
         return runMode switch
         {
-            RunMode.PartOne => await MarginOfError(false),
-            RunMode.PartTwo => await MarginOfError(true),
+            RunMode.PartOne => MarginOfError(false),
+            RunMode.PartTwo => MarginOfError(true),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private async Task<int> MarginOfError(bool ignoreSpaces)
+    private int MarginOfError(bool ignoreSpaces)
     {
-        var races = await ParseRaces(ignoreSpaces);
+        var races = ParseRaces(ignoreSpaces);
 
         // Number of ways you could beat the record in each race.
         var numWays = new List<long>();
@@ -32,9 +32,9 @@ public class Solution : BaseSolution
         return (int)numWays.Aggregate(1, (long x, long y) => x * y);
     }
 
-    private async Task<ReadOnlyDictionary<long, long>> ParseRaces(bool ignoreSpaces)
+    private ReadOnlyDictionary<long, long> ParseRaces(bool ignoreSpaces)
     {
-        var lines = await ReadInput();
+        var lines = ReadInput();
         var times = NumbersFromLine(lines[0], ignoreSpaces);
         var distances = NumbersFromLine(lines[1], ignoreSpaces);
 

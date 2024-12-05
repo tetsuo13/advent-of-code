@@ -5,18 +5,18 @@ namespace AdventOfCode.Calendar.Year2023.Day07;
 [PuzzleInfo(2023, 7, "Camel Cards")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
         return runMode switch
         {
-            RunMode.PartOne => await TotalWinningsByStrength(false),
-            RunMode.PartTwo => await TotalWinningsByStrength(true),
+            RunMode.PartOne => TotalWinningsByStrength(false),
+            RunMode.PartTwo => TotalWinningsByStrength(true),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private async Task<int> TotalWinningsByStrength(bool withJokerRule) =>
-        ParseInput(await ReadInput())
+    private int TotalWinningsByStrength(bool withJokerRule) =>
+        ParseInput(ReadInput())
             .Order(new CamelCardsComparer(withJokerRule))
             .Select((hand, rank) => hand.Bid * (rank + 1))
             .Sum();

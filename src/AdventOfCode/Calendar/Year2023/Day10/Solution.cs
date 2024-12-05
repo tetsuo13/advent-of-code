@@ -9,9 +9,9 @@ public class Solution : BaseSolution
 
     private const string StartingPosition = "S";
 
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var lines = await ReadInput();
+        var lines = ReadInput();
         var field = CreateFieldGrid(lines);
 
         return runMode switch

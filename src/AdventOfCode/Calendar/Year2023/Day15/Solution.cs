@@ -6,9 +6,9 @@ namespace AdventOfCode.Calendar.Year2023.Day15;
 [PuzzleInfo(2023, 15, "Lens Library")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var initializationSequence = await ReadInput();
+        var initializationSequence = ReadInput();
         var steps = initializationSequence.Single().Split(',');
 
         return runMode switch

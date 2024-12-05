@@ -9,7 +9,7 @@ public class Day07Tests
     [Theory]
     [InlineData(RunMode.PartOne, 6440)]
     [InlineData(RunMode.PartTwo, 5905)]
-    public async Task Example(RunMode runMode, int expected)
+    public void Example(RunMode runMode, int expected)
     {
         string[] lines =
             [
@@ -21,13 +21,13 @@ public class Day07Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(lines);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 
     [Theory]
     [InlineData(RunMode.PartOne, 6592)]
     [InlineData(RunMode.PartTwo, 6839)]
-    public async Task Example2(RunMode runMode, int expected)
+    public void Example2(RunMode runMode, int expected)
     {
         string[] lines =
             [
@@ -53,13 +53,13 @@ public class Day07Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(lines);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 
     [Theory]
     [InlineData(RunMode.PartOne, 2237)]
     [InlineData(RunMode.PartTwo, 2297)]
-    public async Task Example3(RunMode runMode, int expected)
+    public void Example3(RunMode runMode, int expected)
     {
         string[] lines =
             [
@@ -90,6 +90,6 @@ public class Day07Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(lines);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 }

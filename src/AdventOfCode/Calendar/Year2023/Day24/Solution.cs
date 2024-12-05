@@ -10,9 +10,9 @@ public class Solution : BaseSolution
 {
     private Range<BigInteger> _testArea;
 
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var lines = await ReadInput();
+        var lines = ReadInput();
         var hailstones = ParseHailstones(lines);
 
         // Change test area for unit tests.

@@ -29,9 +29,9 @@ public class Day19Tests
 
     [Theory]
     [InlineData(RunMode.PartOne, 19114)]
-    public async Task Example(RunMode runMode, int expected)
+    public void Example(RunMode runMode, int expected)
     {
         var solution = new SolutionTestWrapper<Solution>(_input);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 }

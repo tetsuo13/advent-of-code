@@ -7,7 +7,7 @@ namespace AdventOfCode.Tests.Calendar.Year2023;
 public class Day01Tests
 {
     [Fact]
-    public async Task PartOne()
+    public void PartOne()
     {
         string[] lines =
             [
@@ -18,11 +18,11 @@ public class Day01Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(lines);
-        Assert.Equal(142, await solution.Run(RunMode.PartOne));
+        Assert.Equal(142, solution.Run(RunMode.PartOne));
     }
 
     [Fact]
-    public async Task PartTwo()
+    public void PartTwo()
     {
         string[] lines =
             [
@@ -36,6 +36,6 @@ public class Day01Tests
             ];
 
         var solution = new SolutionTestWrapper<Solution>(lines);
-        Assert.Equal(281, await solution.Run(RunMode.PartTwo));
+        Assert.Equal(281, solution.Run(RunMode.PartTwo));
     }
 }

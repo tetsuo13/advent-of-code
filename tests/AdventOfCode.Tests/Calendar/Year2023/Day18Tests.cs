@@ -27,9 +27,9 @@ public class Day18Tests
     [Theory]
     [InlineData(RunMode.PartOne, 62)]
     [InlineData(RunMode.PartTwo, 952408144115)]
-    public async Task Example(RunMode runMode, long expected)
+    public void Example(RunMode runMode, long expected)
     {
         var solution = new SolutionTestWrapper<Solution>(_input);
-        Assert.Equivalent(expected, await solution.Run(runMode));
+        Assert.Equivalent(expected, solution.Run(runMode));
     }
 }

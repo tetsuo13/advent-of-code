@@ -9,9 +9,9 @@ public class Solution : BaseSolution
     private const string RejectedRule = "R";
     private const string AcceptedRule = "A";
 
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var lines = await ReadInput();
+        var lines = ReadInput();
         var separatorIndex = Array.IndexOf(lines, string.Empty);
         var workflows = ParseWorkflows(lines.Take(separatorIndex));
         var partRatings = ParsePartRatings(lines.Skip(separatorIndex + 1));

@@ -3,5 +3,5 @@
 #if RELEASE
 BenchmarkDotNet.Running.BenchmarkRunner.Run<BenchmarkSolutionRunner>();
 #else
-await new SolutionRunner().RunAsync();
+new SolutionRunner().Run();
 #endif

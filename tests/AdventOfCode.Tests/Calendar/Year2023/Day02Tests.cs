@@ -18,9 +18,9 @@ public class Day02Tests
     [Theory]
     [InlineData(RunMode.PartOne, 8)]
     [InlineData(RunMode.PartTwo, 2286)]
-    public async Task SampleRecord(RunMode runMode, int expected)
+    public void SampleRecord(RunMode runMode, int expected)
     {
         var solution = new SolutionTestWrapper<Solution>(_input);
-        Assert.Equal(expected, await solution.Run(runMode));
+        Assert.Equal(expected, solution.Run(runMode));
     }
 }

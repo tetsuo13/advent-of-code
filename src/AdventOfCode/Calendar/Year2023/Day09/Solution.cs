@@ -5,9 +5,9 @@ namespace AdventOfCode.Calendar.Year2023.Day09;
 [PuzzleInfo(2023, 9, "Mirage Maintenance")]
 public class Solution : BaseSolution
 {
-    public override async Task<object> Run(RunMode runMode)
+    public override object Run(RunMode runMode)
     {
-        var oasisReport = await ReadInput();
+        var oasisReport = ReadInput();
         var histories = oasisReport.Select(x => x.Split(' ').Select(int.Parse).ToList()).ToList();
 
         return runMode switch

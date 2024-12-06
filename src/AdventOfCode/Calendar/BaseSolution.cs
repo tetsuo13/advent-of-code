@@ -51,6 +51,7 @@ public abstract class BaseSolution
             throw new FileNotFoundException($"Input file not found in {inputFile}");
         }
 
+        // TODO: This is probably not the most efficient way of reading all lines from a file...
         return File.ReadAllLines(inputFile);
     }
 }

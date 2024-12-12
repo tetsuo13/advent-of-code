@@ -22,6 +22,7 @@ public class Day06Tests
 
     [Theory]
     [InlineData(RunMode.PartOne, 41)]
+    [InlineData(RunMode.PartTwo, 6)]
     public void Example(RunMode runMode, int expected)
     {
         var solution = new SolutionTestWrapper<Solution>(_input);

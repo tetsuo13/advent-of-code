@@ -11,14 +11,16 @@ public class Solution : BaseSolution
 
     private int[,] _map;
 
+    private enum Measure { Score, Rating }
+
     public override object Run(RunMode runMode)
     {
         InitializeMap(ReadInput());
 
         return runMode switch
         {
-            RunMode.PartOne => SumTrailheadScores(),
-            RunMode.PartTwo => 0,
+            RunMode.PartOne => SumTrailheads(Measure.Score),
+            RunMode.PartTwo => SumTrailheads(Measure.Rating),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
@@ -49,7 +51,7 @@ public class Solution : BaseSolution
         }
     }
 
-    private int SumTrailheadScores()
+    private int SumTrailheads(Measure measure)
     {
         var sum = 0;
 
@@ -63,7 +65,7 @@ public class Solution : BaseSolution
                 }
 
                 List<Point> trailends = [];
-                DoHikingTrail(row, column, trailends);
+                DoHikingTrail(row, column, trailends, measure);
                 sum += trailends.Count;
             }
         }
@@ -71,7 +73,7 @@ public class Solution : BaseSolution
         return sum;
     }
 
-    private void DoHikingTrail(int row, int column, List<Point> trailends)
+    private void DoHikingTrail(int row, int column, List<Point> trailends, Measure measure)
     {
         var height = _map[row, column];
 
@@ -79,10 +81,12 @@ public class Solution : BaseSolution
         {
             var trailend = new Point(row, column);
 
-            // *Unique* trailends!
-            if (!trailends.Contains(trailend))
+            switch (measure)
             {
-                trailends.Add(trailend);
+                case Measure.Score when !trailends.Contains(trailend): // *Unique* trailends!
+                case Measure.Rating:
+                    trailends.Add(trailend);
+                    break;
             }
 
             return;
@@ -90,22 +94,22 @@ public class Solution : BaseSolution
 
         if (row > 0 && _map[row - 1, column] == height + 1)
         {
-            DoHikingTrail(row - 1, column, trailends);
+            DoHikingTrail(row - 1, column, trailends, measure);
         }
 
         if (row < _map.GetLength(0) - 1 && _map[row + 1, column] == height + 1)
         {
-            DoHikingTrail(row + 1, column, trailends);
+            DoHikingTrail(row + 1, column, trailends, measure);
         }
 
         if (column > 0 && _map[row, column - 1] == height + 1)
         {
-            DoHikingTrail(row, column - 1, trailends);
+            DoHikingTrail(row, column - 1, trailends, measure);
         }
 
         if (column < _map.GetLength(1) - 1 && _map[row, column + 1] == height + 1)
         {
-            DoHikingTrail(row, column + 1, trailends);
+            DoHikingTrail(row, column + 1, trailends, measure);
         }
     }
 }

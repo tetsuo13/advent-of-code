@@ -1,12 +1,11 @@
 ﻿using AdventOfCode.Common;
+using AdventOfCode.Utilities;
 
 namespace AdventOfCode.Calendar.Year2023.Day10;
 
 [PuzzleInfo(2023, 10, "Pipe Maze")]
 public class Solution : BaseSolution
 {
-    private readonly record struct Point(long X, long Y);
-
     private const string StartingPosition = "S";
 
     public override object Run(RunMode runMode)

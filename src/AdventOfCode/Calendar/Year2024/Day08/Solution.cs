@@ -1,4 +1,5 @@
 ﻿using AdventOfCode.Common;
+using AdventOfCode.Utilities;
 
 namespace AdventOfCode.Calendar.Year2024.Day08;
 
@@ -16,9 +17,6 @@ public class Solution : BaseSolution
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
-
-    // TODO: Move this out
-    private readonly record struct Point(int X, int Y);
 
     /// <summary>
     ///

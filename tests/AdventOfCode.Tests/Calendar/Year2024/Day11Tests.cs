@@ -11,7 +11,7 @@ public class Day11Tests
     {
         string[] input = ["0 1 10 99 999"];
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(7, solution.Run(RunMode.PartOne));
+        Assert.Equal(7L, solution.Run(RunMode.PartOne));
     }
 
     [Fact]
@@ -19,6 +19,6 @@ public class Day11Tests
     {
         string[] input = ["125 17"];
         var solution = new SolutionTestWrapper<Solution>(input);
-        Assert.Equal(55312, solution.Run(RunMode.PartOne));
+        Assert.Equal(55_312L, solution.Run(RunMode.PartOne));
     }
 }

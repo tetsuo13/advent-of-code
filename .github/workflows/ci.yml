@@ -22,7 +22,7 @@ jobs:
 
       # Ubuntu runner only has native support for .NET 8
       - name: Setup .NET 9 SDK
-        uses: actions/setup-dotnet@87b7050bc53ea08284295505d98d2aa94301e852 # v4.2.0
+        uses: actions/setup-dotnet@3951f0dfe7a07e2313ec93c75700083e2005cbab # v4.3.0
         with:
           dotnet-version: 9.x
 

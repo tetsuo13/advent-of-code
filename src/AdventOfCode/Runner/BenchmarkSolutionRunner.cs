@@ -27,15 +27,15 @@ namespace AdventOfCode.Runner;
 public class BenchmarkSolutionRunner
 {
     [ParamsSource(nameof(SolutionsToRun))]
-    public BaseSolution Solution;
+    public required BaseSolution Solution { get; set; }
 
     public IEnumerable<BaseSolution> SolutionsToRun { get; init; } = SolutionFinder.FindSolutionsWithInputs();
 
     [ParamsAllValues]
-    public RunMode PartToRun;
+    public required RunMode PartToRun { get; set; }
 
     /// <summary>
-    /// Should be set during benchmark run for use during cleanup phase.
+    /// Should be set during the benchmark run for use during the cleanup phase.
     /// </summary>
     private object? _solutionAnswer;
 

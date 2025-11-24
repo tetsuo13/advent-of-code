@@ -9,7 +9,7 @@ public class Solution : BaseSolution
     private const int Trailhead = 0;
     private const int Trailend = 9;
 
-    private int[,] _map;
+    private int[,]? _map;
 
     private enum Measure { Score, Rating }
 
@@ -53,6 +53,11 @@ public class Solution : BaseSolution
 
     private int SumTrailheads(Measure measure)
     {
+        if (_map is null)
+        {
+            throw new InvalidOperationException($"Map not initialized with {nameof(InitializeMap)}");
+        }
+
         var sum = 0;
 
         for (var row = 0; row < _map.GetLength(0); row++)
@@ -75,7 +80,7 @@ public class Solution : BaseSolution
 
     private void DoHikingTrail(int row, int column, List<Point> trailends, Measure measure)
     {
-        var height = _map[row, column];
+        var height = _map![row, column];
 
         if (height == Trailend)
         {

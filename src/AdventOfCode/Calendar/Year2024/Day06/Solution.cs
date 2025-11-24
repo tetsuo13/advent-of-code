@@ -30,7 +30,7 @@ public class Solution : BaseSolution
         { Direction.Left, (0, -1) }
     };
 
-    private bool[,] _visitedPositions;
+    private bool[,]? _visitedPositions;
 
     public override object Run(RunMode runMode)
     {
@@ -57,7 +57,7 @@ public class Solution : BaseSolution
         // for the guard to leave the map, run the map starting at the same
         // initial position, and see if it results in a loop.
         // TODO: This could be done in parallel
-        for (var i = 0; i < _visitedPositions.GetLength(0); i++)
+        for (var i = 0; i < _visitedPositions!.GetLength(0); i++)
         {
             for (var j = 0; j < _visitedPositions.GetLength(1); j++)
             {
@@ -131,13 +131,12 @@ public class Solution : BaseSolution
         // Use a grid the same size as the map to record the unique positions
         // visited. Initialize the grid with false values, mark visited
         // positions by flipping bit.
-        var visited = new bool[map[0].Length, map.Length];
 
         // While not out of bounds, bounce the guard all over the damn place.
         // Assumes that guard won't enter a loop scenario.
         do
         {
-            _visitedPositions[position.Row, position.Column] = true;
+            _visitedPositions![position.Row, position.Column] = true;
 
             // Examine the next step the guard would make.
             var rowOffset = position.Row + _stepOffset[stepDirection].RowOffset;

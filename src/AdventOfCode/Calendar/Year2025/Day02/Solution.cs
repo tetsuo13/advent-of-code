@@ -29,10 +29,10 @@ public class Solution : BaseSolution
             // Brute force approach to look at every number.
             for (var i = firstId; i <= lastId; i++)
             {
-                var numDigits = Math.Floor(1 + Math.Log10(i));
+                var numDigits = (int)(1 + Math.Log10(i));
 
                 // Only look at numbers that contain an even number of digits.
-                // Odd numbers can't be valid.
+                // Odd numbers can't be invalid.
                 if (numDigits % 2 != 0)
                 {
                     continue;

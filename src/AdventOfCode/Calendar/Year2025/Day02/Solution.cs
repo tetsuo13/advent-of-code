@@ -1,4 +1,5 @@
-﻿using AdventOfCode.Common;
+﻿using System.Text;
+using AdventOfCode.Common;
 
 namespace AdventOfCode.Calendar.Year2025.Day02;
 
@@ -11,13 +12,13 @@ public class Solution : BaseSolution
 
         return runMode switch
         {
-            RunMode.PartOne => SumInvalidIds(rotations[0]),
-            RunMode.PartTwo => 0,
+            RunMode.PartOne => SumInvalidIds(rotations[0], false),
+            RunMode.PartTwo => SumInvalidIds(rotations[0], true),
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private static long SumInvalidIds(string idRanges)
+    private static long SumInvalidIds(string idRanges, bool useNewRules)
     {
         long sum = 0;
 
@@ -31,20 +32,49 @@ public class Solution : BaseSolution
             {
                 var numDigits = (int)(1 + Math.Log10(i));
 
-                // Only look at numbers that contain an even number of digits.
-                // Odd numbers can't be invalid.
-                if (numDigits % 2 != 0)
+                if (numDigits % 2 == 0)
+                {
+                    // Treating the number as a string, compare the first half
+                    // with the last half for equality.
+                    var id = i.ToString();
+
+                    if (id[..(id.Length / 2)] == id[(id.Length / 2)..])
+                    {
+                        sum += i;
+
+                        // Don't run through the new rule process as well,
+                        // otherwise it'll get counted twice.
+                        if (useNewRules)
+                        {
+                            continue;
+                        }
+                    }
+                }
+
+                if (!useNewRules)
                 {
                     continue;
                 }
 
-                // Treating the number as a string, compare the first half
-                // with the last half for equality.
-                var id = i.ToString();
-
-                if (id[..(id.Length / 2)] == id[(id.Length / 2)..])
+                // Brute force approach to try every combination.
+                for (var y = 1; y <= numDigits / 2; y++)
                 {
-                    sum += i;
+                    if (numDigits % y != 0)
+                    {
+                        continue;
+                    }
+
+                    var id = i.ToString();
+                    var substring = id[..y];
+                    var repeats = numDigits / y;
+                    var repeated = new StringBuilder(substring.Length * repeats)
+                        .Insert(0, substring, repeats)
+                        .ToString();
+
+                    if (repeated == id)
+                    {
+                        sum += i;
+                    }
                 }
             }
         }

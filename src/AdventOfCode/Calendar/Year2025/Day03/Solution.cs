@@ -11,53 +11,59 @@ public class Solution : BaseSolution
 
         return runMode switch
         {
-            RunMode.PartOne => TotalOutputJoltage(banks),
+            RunMode.PartOne => TotalOutputJoltage(banks, 2),
             RunMode.PartTwo => 0,
             _ => throw new ArgumentOutOfRangeException(nameof(runMode))
         };
     }
 
-    private static double TotalOutputJoltage(string[] banks)
+    private static double TotalOutputJoltage(string[] banks, int batteriesPerBank)
     {
         double sum = 0;
 
         foreach (var bank in banks)
         {
-            int firstBattery = -1;
-            int secondBattery = -1;
+            var placeValueMultiplier = 10 * (batteriesPerBank - 1);
+            var lastBatteryPos = -1;
 
-            // Use ASCII codes to avoid extra conversions.
-            for (var i = 57; i > 49; i--)
+            for (var batteryNum = 0; batteryNum < batteriesPerBank; batteryNum++)
             {
-                firstBattery = bank.IndexOf((char)i);
+                var batteryIndex = -1;
 
-                if (firstBattery != -1 && firstBattery < bank.Length - 1)
+                // Use ASCII values to reduce conversions since we're working
+                // with chars. Omitting zero, it doesn't appear in the input.
+                // ASCII 57 = number 9
+                // ASCII 49 = number 1
+                for (var j = 57; j > 49; j--)
                 {
+                    batteryIndex = bank.IndexOf((char)j, lastBatteryPos + 1);
+
+                    if (batteryIndex == -1)
+                    {
+                        continue;
+                    }
+
+                    // Don't count it if it's found in the last position when
+                    // looking at the first batter. Minimum of two batteries
+                    // required.
+                    if (batteryNum == 0 && batteryIndex == bank.Length - 1)
+                    {
+                        continue;
+                    }
+
                     break;
                 }
-            }
 
-            if (firstBattery == -1)
-            {
-                throw new ArithmeticException("First battery wasn't found. This should not happen.");
-            }
-
-            for (var i = 57; i > 49; i--)
-            {
-                secondBattery = bank.IndexOf((char)i, firstBattery + 1);
-
-                if (secondBattery != -1)
+                if (batteryIndex == -1)
                 {
-                    break;
+                    throw new ArithmeticException("Battery wasn't found. This should never happen.");
                 }
-            }
 
-            if (secondBattery == -1)
-            {
-                throw new ArithmeticException("Second battery wasn't found. This should not happen.");
-            }
+                sum += char.GetNumericValue(bank[batteryIndex]) * placeValueMultiplier;
 
-            sum += char.GetNumericValue(bank[firstBattery]) * 10 + char.GetNumericValue(bank[secondBattery]);
+                placeValueMultiplier /= 10;
+                lastBatteryPos = batteryIndex;
+            }
         }
 
         return sum;

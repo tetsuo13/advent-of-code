@@ -20,12 +20,6 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
 
-      # Ubuntu runner only has native support for .NET 8
-      - name: Setup .NET 9 SDK
-        uses: actions/setup-dotnet@2016bd2012dba4e32de620c46fe006a3ac9f0602 # v5.0.1
-        with:
-          dotnet-version: 9.x
-
       - name: Restore dependencies
         run: dotnet restore
 
